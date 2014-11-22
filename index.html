@@ -6,6 +6,7 @@
 
   <title>HikePlan</title>
 
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,700" type="text/css">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
   <link rel="stylesheet" href="assets/hikeplan.css">
@@ -17,6 +18,58 @@
   <script src="assets/hikeplan.js"></script>
 </head>
 <body>
-  <div id="map"></div>
+  <header class="header">
+    <h1>HikePlan</h1>
+  </header>
+
+  <div class="main">
+    <aside class="sidebar">
+      <p>Enter waypoints:</p>
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              @
+            </div>
+            <input type="text" class="form-control" value="45.695449, 24.739665">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              @
+            </div>
+            <input type="text" class="form-control" value="45.599444, 24.736111">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              @
+            </div>
+            <input type="text" class="form-control" value="45.604430, 24.618988">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              @
+            </div>
+            <input type="text" class="form-control" value="45.599146, 24.606199">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              @
+            </div>
+            <input type="text" class="form-control" value="45.652778, 24.355278">
+          </div>
+        </div>
+      </form>
+    </aside>
+
+    <div id="map" class="map"></div>
+  </div>
 </body>
 </html>

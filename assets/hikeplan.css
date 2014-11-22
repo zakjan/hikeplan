@@ -2,6 +2,37 @@ html, body {
   height: 100%;
 }
 
-#map {
-  height: 100%;
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  flex: 0 0 70px;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  flex: 0 0 250px;
+}
+
+.map {
+  flex: 1;
+}
+
+
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: #6B8E23;
+  color: #ffffff;
+}
+
+.sidebar .input-group-addon {
+  padding-left: 6px;
+  padding-right: 6px;
 }
