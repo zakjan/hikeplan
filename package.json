@@ -5,16 +5,16 @@
   "author": "Jan Zak <zj@zakjan.cz>",
   "private": true,
   "scripts": {
-    "install": "napa"
+    "start": "node server.js"
   },
   "dependencies": {
     "gulp": "~3.8.10",
     "leaflet": "~0.7.3",
     "jquery": "~2.1.1",
     "bootstrap": "~3.3.1",
-    "napa": "~1.0.2"
-  },
-  "napa": {
-    "leaflet-routing": "Turistforeningen/leaflet-routing"
+    "leaflet-routing-machine": "~1.1.0",
+    "morgan": "~1.5.0",
+    "request": "~2.48.0",
+    "express": "~4.10.2"
   }
 }

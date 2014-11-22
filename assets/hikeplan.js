@@ -42,29 +42,25 @@ $(function() {
   };
 
   var addRouting = function() {
-    // OSM router
-    var router = function(point1, point2, cb) {
-      var proxy = 'http://www2.turistforeningen.no/routing.php?url=';
-      var route = 'http://www.yournavigation.org/api/1.0/gosmore.php&format=geojson&v=foot&fast=1&layer=mapnik';
-      var params = '&flat=' + point1.lat + '&flon=' + point1.lng + '&tlat=' + point2.lat + '&tlon=' + point2.lng;
-      $.getJSON(proxy + route + params, function(geojson, status) {
-        if (!geojson || !geojson.coordinates || geojson.coordinates.length === 0) {
-          if (typeof console.log === 'function') {
-            console.log('OSM router failed', geojson);
-          }
-          return cb(new Error());
-        }
-        return cb(null, L.GeoJSON.geometryToLayer(geojson));
-      });
-    }
-    routing = new L.Routing({
-      position: 'topleft',
-      routing: {
-        router: router
-      }
+    var router = new L.Routing.OSRM({
+      serviceUrl: 'http://router.project-osrm.org/viaroute'
+    });
+    router = new L.Routing.YOURS({
+      serviceUrl: 'http://localhost:3000/route'
+    });
+
+    var routing = L.Routing.control({
+      router: router,
+      waypoints: [
+        new L.LatLng(45.652778, 24.355278),
+        new L.LatLng(45.599444, 24.736111)
+      ]
     });
     map.addControl(routing);
-    routing.draw();
+
+    routing.route({
+      geometryOnly: true
+    });
   };
 
   initMap();
