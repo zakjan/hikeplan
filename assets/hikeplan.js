@@ -53,7 +53,10 @@ $(function() {
       router: router,
       waypoints: [
         new L.LatLng(45.652778, 24.355278),
-        new L.LatLng(45.599444, 24.736111)
+        new L.LatLng(45.599146, 24.606199),
+        new L.LatLng(45.604430, 24.618988),
+        new L.LatLng(45.599444, 24.736111),
+        new L.LatLng(45.695449, 24.739665)
       ]
     });
     map.addControl(routing);
