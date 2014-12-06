@@ -4,7 +4,9 @@ var Header = React.createClass({
   render: function() {
     return (
       <header className="header">
-        <h1>HikePlan</h1>
+        <div className="navbar navbar-inverse">
+          <a href="/" className="navbar-brand">HikePlan</a>
+        </div>
       </header>
     );
   },

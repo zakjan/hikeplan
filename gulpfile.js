@@ -1,8 +1,18 @@
 'use strict';
 
 var gulp = require('gulp');
-var react = require('gulp-react');
+var clean = require('gulp-clean');
 var ejs = require('gulp-ejs');
+var less = require('gulp-less');
+var react = require('gulp-react');
+
+var runSequence = require('run-sequence');
+
+
+gulp.task('build-clean', function() {
+  return gulp.src('build')
+    .pipe(clean());
+});
 
 
 gulp.task('build-vendor', function() {
@@ -22,8 +32,10 @@ gulp.task('build-vendor', function() {
     .pipe(gulp.dest('build/vendor'));
 });
 
+
 gulp.task('build-app-css', function() {
-  return gulp.src('src/app/**/*.css')
+  return gulp.src('src/app/**/*.less')
+    .pipe(less())
     .pipe(gulp.dest('build/app'));
 });
 
@@ -38,6 +50,9 @@ gulp.task('build-app-index', function() {
     'vendor/bootstrap/dist/css/bootstrap.css',
     'vendor/leaflet/dist/leaflet.css',
     'app/app.css',
+    'app/header/header.css',
+    'app/sidebar/sidebar.css',
+    'app/waypointsBox/waypointBox.css',
   ];
   var scripts = [
     'vendor/react/dist/react.js',
@@ -46,11 +61,11 @@ gulp.task('build-app-index', function() {
     'vendor/leaflet-routing-machine/dist/leaflet-routing-machine.js',
     'vendor/leaflet-routing-yours/src/L.Routing.YOURS.js',
     'app/app.js',
-    'app/header.js',
-    'app/sidebar.js',
-    'app/waypointForm.js',
-    'app/waypointInput.js',
-    'app/map.js',
+    'app/header/header.js',
+    'app/sidebar/sidebar.js',
+    'app/waypointsBox/waypointsBox.js',
+    'app/waypointsBox/waypointBox.js',
+    'app/map/map.js',
     'app/init.js',
   ];
 
@@ -64,10 +79,14 @@ gulp.task('build-app-index', function() {
 
 gulp.task('build-app', ['build-app-css', 'build-app-js', 'build-app-index'])
 
-gulp.task('build', ['build-vendor', 'build-app']);
+
+gulp.task('build', function(done) {
+  runSequence('build-clean', ['build-vendor', 'build-app'], done);
+});
+
 
 gulp.task('watch', ['build'], function() {
-  gulp.watch('src/**/*.css', ['build-app-css']);
+  gulp.watch('src/**/*.less', ['build-app-css']);
   gulp.watch('src/**/*.jsx', ['build-app-js']);
   gulp.watch('src/index.html', ['build-app-index']);
 });

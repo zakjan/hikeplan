@@ -20,8 +20,13 @@ var App = React.createClass({
     this.forceUpdate();
   },
 
-  changeWaypoint: function(value, i) {
+  changeWaypoint: function(i, value) {
     this.state.waypoints[i] = value;
+    this.forceUpdate();
+  },
+
+  removeWaypoint: function(i) {
+    this.state.waypoints.splice(i, 1);
     this.forceUpdate();
   },
 
@@ -43,6 +48,7 @@ var App = React.createClass({
             waypoints={this.state.waypoints}
             onAddWaypoint={this.addWaypoint}
             onChangeWaypoint={this.changeWaypoint}
+            onRemoveWaypoint={this.removeWaypoint}
           />
 
           <Map
