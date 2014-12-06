@@ -1,9 +1,12 @@
+'use strict';
+
 var express = require('express');
 var http = require('http');
 var morgan = require('morgan');
 var path = require('path');
 var querystring = require('querystring');
 var request = require('request');
+var serveStatic = require('serve-static');
 var url = require('url');
 
 
@@ -14,10 +17,12 @@ var setupMiddlewares = function(app) {
 };
 
 var setupRoutes = function(app) {
+  var staticRoot = path.join(process.cwd(), 'build');
+
   app.get('/', function(req, res) {
-    res.sendFile(path.join(process.cwd(), 'index.html'));
+    res.sendFile(path.join(staticRoot, 'index.html'));
   });
-  app.use('/', express.static(process.cwd()));
+  app.use('/', serveStatic(staticRoot));
 };
 
 var setupApiProxy = function(app) {

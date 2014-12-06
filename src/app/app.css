@@ -4,6 +4,10 @@ html, body {
 
 body {
   display: flex;
+}
+
+.app {
+  display: flex;
   flex-direction: column;
 }
 
@@ -27,7 +31,7 @@ body {
 
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: Verdana, sans-serif;
   background: #6B8E23;
   color: #ffffff;
 }

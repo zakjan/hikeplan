@@ -1,18 +1,28 @@
-$(function() {
-  var map;
+'use strict';
 
-  var initMap = function() {
-    map = new L.map('map');
-    map.setView([45.601944, 24.616944], 13);
-  };
+var Map = React.createClass({
+  initMap: function() {
+    this.map = new L.map(this.getDOMNode());
+    this.map.setView(this.props.center, this.props.zoom);
+  },
 
-  var addLayers = function() {
+  addEventHandlers: function() {
+    var that = this;
+    this.map.on('moveend', function() {
+      that.props.onCenterChange(that.map.getCenter());
+    });
+    this.map.on('zoomend', function() {
+      that.props.onZoomChange(that.map.getZoom());
+    });
+  },
+
+  addLayers: function() {
     var thunderforestLandscapeLayer = new L.tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: 'tiles &copy; <a target="_blank" href="http://www.thunderforest.com">Thunderforest</a> ' +
         '(<a target="_blank" href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA 2.0</a>)'
     });
-    map.addLayer(thunderforestLandscapeLayer);
+    this.map.addLayer(thunderforestLandscapeLayer);
 
     var openStreetMapLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -34,39 +44,42 @@ $(function() {
     var layers = L.control.layers({
       'Thunderforest Landscape': thunderforestLandscapeLayer,
       'OpenStreetMap': openStreetMapLayer,
-      'OpenCycleMap': openCycleMapLayer
+      'OpenCycleMap': openCycleMapLayer,
     }, {
-      'Waymarked Trails': waymarkedTrailsLayer
+      'Waymarked Trails': waymarkedTrailsLayer,
     });
-    map.addControl(layers);
-  };
+    this.map.addControl(layers);
+  },
 
-  var addRouting = function() {
-    var router = new L.Routing.OSRM({
-      serviceUrl: 'http://router.project-osrm.org/viaroute'
-    });
-    router = new L.Routing.YOURS({
-      serviceUrl: 'http://localhost:3000/route'
+  addRouting: function() {
+    // var router = new L.Routing.OSRM({
+    //   serviceUrl: 'http://router.project-osrm.org/viaroute',
+    // });
+    var router = new L.Routing.YOURS({
+      serviceUrl: 'http://localhost:3000/route',
     });
 
     var routing = L.Routing.control({
       router: router,
-      waypoints: [
-        new L.LatLng(45.652778, 24.355278),
-        new L.LatLng(45.599146, 24.606199),
-        new L.LatLng(45.604430, 24.618988),
-        new L.LatLng(45.599444, 24.736111),
-        new L.LatLng(45.695449, 24.739665)
-      ]
+      waypoints: this.props.waypoints,
     });
-    map.addControl(routing);
+    this.map.addControl(routing);
 
     routing.route({
-      geometryOnly: true
+      geometryOnly: true,
     });
-  };
+  },
 
-  initMap();
-  addLayers();
-  addRouting();
+  componentDidMount: function() {
+    this.initMap();
+    this.addEventHandlers();
+    this.addLayers();
+    this.addRouting();
+  },
+
+  render: function() {
+    return (
+      <div className="map" />
+    );
+  },
 });
