@@ -3,11 +3,11 @@
 var WaypointBox = React.createClass({
   changeWaypoint: function(e) {
     var waypoint = e.target.value.split(/, */);
-    this.props.onChangeWaypoint(new L.LatLng(parseFloat(waypoint[0]), parseFloat(waypoint[1])));
+    this.props.onChangeWaypoint({ latLng: new L.LatLng(parseFloat(waypoint[0]), parseFloat(waypoint[1])) });
   },
 
   render: function() {
-    var value = this.props.waypoint.lat + ', ' + this.props.waypoint.lng;
+    var value = this.props.name || this.props.waypoint.latLng.lat + ', ' + this.props.waypoint.latLng.lng;
 
     return (
       <div className="waypoint-box">
