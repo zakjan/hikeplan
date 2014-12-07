@@ -6,10 +6,10 @@ var Map = React.createClass({
     this.map.setView(this.props.center, this.props.zoom);
 
     this.map.on('moveend', () => {
-      this.props.onCenterChange(this.map.getCenter());
+      this.props.onChangeCenter(this.map.getCenter());
     });
     this.map.on('zoomend', () => {
-      this.props.onZoomChange(this.map.getZoom());
+      this.props.onChangeZoom(this.map.getZoom());
     });
   },
 
@@ -64,7 +64,7 @@ var Map = React.createClass({
     });
 
     this.routing.getPlan().on('waypointschanged', () => {
-      this.props.onWaypointsChange(this.routing.getWaypoints());
+      this.props.onChangeWaypoints(this.routing.getWaypoints());
     });
 
     this.map.addControl(this.routing);
@@ -81,7 +81,7 @@ var Map = React.createClass({
   },
 
   componentDidUpdate: function(prevProps) {
-    if (!_.isEqual(prevProps.waypoints, this.props.waypoints)) {
+    if (!_.isEqual(prevProps.waypoints.map(x => x.latLng), this.props.waypoints.map(x => x.latLng))) {
       this.routing.setWaypoints(this.props.waypoints);
     }
   },

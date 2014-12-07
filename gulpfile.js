@@ -20,9 +20,15 @@ gulp.task('build-vendor', function() {
   return gulp.src([
     'node_modules/bootstrap/dist/css/bootstrap.css',
     'node_modules/bootstrap/dist/css/bootstrap.css.map',
+    'node_modules/font-awesome/css/font-awesome.css',
+    'node_modules/font-awesome/fonts/fontawesome-webfont.eot',
+    'node_modules/font-awesome/fonts/fontawesome-webfont.svg',
+    'node_modules/font-awesome/fonts/fontawesome-webfont.ttf',
+    'node_modules/font-awesome/fonts/fontawesome-webfont.woff',
+    'node_modules/font-awesome/fonts/FontAwesome.otf',
     'node_modules/lodash/dist/lodash.js',
     'node_modules/jquery/dist/jquery.js',
-    'node_modules/react/dist/react.js',
+    'node_modules/react/dist/react-with-addons.js',
     'node_modules/leaflet/dist/leaflet.css',
     'node_modules/leaflet/dist/leaflet-src.js',
     'node_modules/leaflet/dist/images/layers.png',
@@ -51,6 +57,7 @@ gulp.task('build-app-js', function() {
 gulp.task('build-app-index', function() {
   var styles = [
     'vendor/bootstrap/dist/css/bootstrap.css',
+    'vendor/font-awesome/css/font-awesome.css',
     'vendor/leaflet/dist/leaflet.css',
     'app/app.css',
     'app/header/header.css',
@@ -60,7 +67,7 @@ gulp.task('build-app-index', function() {
   var scripts = [
     'vendor/lodash/dist/lodash.js',
     'vendor/jquery/dist/jquery.js',
-    'vendor/react/dist/react.js',
+    'vendor/react/dist/react-with-addons.js',
     'vendor/leaflet/dist/leaflet-src.js',
     'vendor/leaflet-routing-machine/dist/leaflet-routing-machine.js',
     'vendor/leaflet-routing-yours/src/L.Routing.YOURS.js',

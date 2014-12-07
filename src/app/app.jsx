@@ -4,32 +4,56 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       center: new L.LatLng(45.601944, 24.616944),
-      zoom: 11,
+      zoom: 10,
+      waypointNextId: 6,
       waypoints: [
-        { latLng: new L.LatLng(45.652778, 24.355278) },
-        { latLng: new L.LatLng(45.599146, 24.606199) },
-        { latLng: new L.LatLng(45.604430, 24.618988) },
-        { latLng: new L.LatLng(45.599444, 24.736111) },
-        { latLng: new L.LatLng(45.695449, 24.739665) },
+        { id: 1, latLng: new L.LatLng(45.652778, 24.355278) },
+        { id: 2, latLng: new L.LatLng(45.599146, 24.606199) },
+        { id: 3, latLng: new L.LatLng(45.604430, 24.618988) },
+        { id: 4, latLng: new L.LatLng(45.599444, 24.736111) },
+        { id: 5, latLng: new L.LatLng(45.695449, 24.739665) },
       ],
+    };
+  },
+
+  createWaypoint: function(waypoint) {
+    return {
+      id: waypoint.id || this.state.waypointNextId++,
+      latLng: new L.LatLng(waypoint.latLng.lat.toFixed(6), waypoint.latLng.lng.toFixed(6)),
     };
   },
 
   addWaypoint: function() {
     var waypoints = _.clone(this.state.waypoints);
-    waypoints.push({ latLng: new L.LatLng(0, 0) });
+    waypoints.push(this.createWaypoint({ latLng: new L.LatLng(0, 0) }));
     this.setState({ waypoints: waypoints });
   },
 
-  changeWaypoint: function(i, value) {
+  reverseWaypoints: function() {
     var waypoints = _.clone(this.state.waypoints);
-    waypoints[i] = value;
+    waypoints.reverse();
     this.setState({ waypoints: waypoints });
   },
 
-  removeWaypoint: function(i) {
+  changeWaypoint: function(waypointId, waypoint) {
+    var waypointIndex = _.findIndex(this.state.waypoints, x => x.id == waypointId);
+    if (waypointIndex == -1) {
+      return;
+    }
+
     var waypoints = _.clone(this.state.waypoints);
-    waypoints.splice(i, 1);
+    waypoints[waypointIndex] = waypoint;
+    this.setState({ waypoints: waypoints });
+  },
+
+  removeWaypoint: function(waypointId) {
+    var waypointIndex = _.findIndex(this.state.waypoints, x => x.id == waypointId);
+    if (waypointIndex == -1) {
+      return;
+    }
+
+    var waypoints = _.clone(this.state.waypoints);
+    waypoints.splice(waypointIndex, 1);
     this.setState({ waypoints: waypoints });
   },
 
@@ -42,9 +66,7 @@ var App = React.createClass({
   },
 
   changeWaypoints: function(waypoints) {
-    waypoints.forEach((waypoint) => {
-      waypoint.latLng = new L.LatLng(waypoint.latLng.lat.toFixed(6), waypoint.latLng.lng.toFixed(6));
-    });
+    var waypoints = waypoints.map(this.createWaypoint, this);
     this.setState({ waypoints: waypoints });
   },
 
@@ -57,6 +79,7 @@ var App = React.createClass({
           <Sidebar
             waypoints={this.state.waypoints}
             onAddWaypoint={this.addWaypoint}
+            onReverseWaypoints={this.reverseWaypoints}
             onChangeWaypoint={this.changeWaypoint}
             onRemoveWaypoint={this.removeWaypoint}
           />
@@ -65,9 +88,9 @@ var App = React.createClass({
             center={this.state.center}
             zoom={this.state.zoom}
             waypoints={this.state.waypoints}
-            onCenterChange={this.changeCenter}
-            onZoomChange={this.changeZoom}
-            onWaypointsChange={this.changeWaypoints}
+            onChangeCenter={this.changeCenter}
+            onChangeZoom={this.changeZoom}
+            onChangeWaypoints={this.changeWaypoints}
           />
         </div>
       </div>

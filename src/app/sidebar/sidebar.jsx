@@ -12,6 +12,7 @@ var Sidebar = React.createClass({
             <WaypointsBox
               waypoints={this.props.waypoints}
               onAddWaypoint={this.props.onAddWaypoint}
+              onReverseWaypoints={this.props.onReverseWaypoints}
               onChangeWaypoint={this.props.onChangeWaypoint}
               onRemoveWaypoint={this.props.onRemoveWaypoint}
             />
