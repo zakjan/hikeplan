@@ -13,6 +13,8 @@ var App = React.createClass({
         { id: 4, latLng: new L.LatLng(45.599444, 24.736111) },
         { id: 5, latLng: new L.LatLng(45.695449, 24.739665) },
       ],
+      route: {},
+      routeLoading: true,
     };
   },
 
@@ -82,6 +84,9 @@ var App = React.createClass({
             onReverseWaypoints={this.reverseWaypoints}
             onChangeWaypoint={this.changeWaypoint}
             onRemoveWaypoint={this.removeWaypoint}
+
+            route={this.state.route}
+            routeLoading={this.state.routeLoading}
           />
 
           <Map

@@ -3,6 +3,12 @@
   border: 1px solid #e2e2e2;
   border-radius: 3px;
   margin-bottom: 10px;
+
+  position: relative;
+
+  &.loading {
+    opacity: 0.5;
+  }
 }
 
 .sidebar-box-head {
@@ -17,4 +23,22 @@
 
 .sidebar-box .form-group {
   margin-bottom: 5px;
+}
+
+.sidebar-box-loader {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+
+  color: #ffffff;
+  text-align: center;
+
+  background: #000000;
+  opacity: 0.2;
+
+  i {
+    margin-top: 50px;
+  }
 }

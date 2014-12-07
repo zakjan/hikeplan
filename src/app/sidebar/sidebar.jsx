@@ -14,12 +14,12 @@ var Sidebar = React.createClass({
               onRemoveWaypoint={this.props.onRemoveWaypoint}
             />
           </SidebarBox>
-          <SidebarBox title="Route stats">
+          <SidebarBox title="Route stats" loading={this.props.routeLoading}>
             <RouteStatsBox route={this.props.route} />
           </SidebarBox>
         </div>
         <div className="sidebar-foot">
-          Made with passion for hiking by <a href="http://www.zakjan.cz">zakjan</a>
+          With passion for hiking, made by <a href="http://www.zakjan.cz">zakjan</a>
         </div>
       </div>
     );
