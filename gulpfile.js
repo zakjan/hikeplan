@@ -62,7 +62,9 @@ gulp.task('build-app-index', function() {
     'app/app.css',
     'app/header/header.css',
     'app/sidebar/sidebar.css',
+    'app/sidebarBox/sidebarBox.css',
     'app/waypointsBox/waypointBox.css',
+    'app/routeStatsBox/routeStatsBox.css',
   ];
   var scripts = [
     'vendor/lodash/dist/lodash.js',
@@ -74,8 +76,10 @@ gulp.task('build-app-index', function() {
     'app/app.js',
     'app/header/header.js',
     'app/sidebar/sidebar.js',
+    'app/sidebarBox/sidebarBox.js',
     'app/waypointsBox/waypointsBox.js',
     'app/waypointsBox/waypointBox.js',
+    'app/routeStatsBox/routeStatsBox.js',
     'app/map/map.js',
     'app/init.js',
   ];

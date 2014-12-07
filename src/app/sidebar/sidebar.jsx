@@ -4,11 +4,8 @@ var Sidebar = React.createClass({
   render: function() {
     return (
       <div className="sidebar">
-        <div className="sidebar-box">
-          <div className="sidebar-box-head">
-            Waypoints
-          </div>
-          <div className="sidebar-box-body">
+        <div className="sidebar-body">
+          <SidebarBox title="Waypoints">
             <WaypointsBox
               waypoints={this.props.waypoints}
               onAddWaypoint={this.props.onAddWaypoint}
@@ -16,7 +13,13 @@ var Sidebar = React.createClass({
               onChangeWaypoint={this.props.onChangeWaypoint}
               onRemoveWaypoint={this.props.onRemoveWaypoint}
             />
-          </div>
+          </SidebarBox>
+          <SidebarBox title="Route stats">
+            <RouteStatsBox route={this.props.route} />
+          </SidebarBox>
+        </div>
+        <div className="sidebar-foot">
+          Made with passion for hiking by <a href="http://www.zakjan.cz">zakjan</a>
         </div>
       </div>
     );
