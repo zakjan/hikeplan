@@ -1,15 +1,13 @@
 'use strict';
 
 var WaypointBox = React.createClass({
+  mixins: [React.addons.LinkedStateMixin],
+
   getInitialState: function() {
     return {
       value: '0, 0',
       valid: true,
     };
-  },
-
-  changeValue: function(e) {
-    this.setState({ value: e.target.value });
   },
 
   changeWaypoint: function() {
@@ -49,7 +47,7 @@ var WaypointBox = React.createClass({
             @
           </div>
           <div className="waypoint-box-body">
-            <input type="text" className="form-control" value={this.state.value} onChange={this.changeValue} onBlur={this.changeWaypoint} />
+            <input type="text" className="form-control" valueLink={this.linkState('value')} onBlur={this.changeWaypoint} />
           </div>
           <div className="waypoint-box-foot">
             <a className="close" onClick={this.props.onRemoveWaypoint}>&times;</a>
