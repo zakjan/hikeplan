@@ -26,6 +26,7 @@
     "gulp-clean": "~0.3.1",
     "lodash": "~2.4.1",
     "gulp-6to5": "~1.0.2",
-    "font-awesome": "~4.2.0"
+    "font-awesome": "~4.2.0",
+    "heroku-self-ping": "~1.1.1"
   }
 }

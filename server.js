@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var herokuSelfPing = require('heroku-self-ping');
 var http = require('http');
 var morgan = require('morgan');
 var path = require('path');
@@ -63,4 +64,4 @@ var setupPing = function() {
 
 
 setup();
-setupPing();
+herokuSelfPing(process.env.BASE_URL);
