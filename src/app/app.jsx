@@ -14,7 +14,7 @@ var App = React.createClass({
         { id: 5, latLng: new L.LatLng(45.695449, 24.739665) },
       ],
       route: {},
-      routeLoading: true,
+      routeLoading: false,
     };
   },
 
