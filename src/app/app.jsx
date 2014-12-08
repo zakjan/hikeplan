@@ -7,7 +7,7 @@ var App = React.createClass({
       zoom: 10,
       waypointNextId: 7,
       waypoints: [
-        { id: 1, latLng: new L.LatLng(45.652778, 24.355278) },
+        { id: 1, latLng: new L.LatLng(45.648638, 24.356754) },
         { id: 2, latLng: new L.LatLng(45.599146, 24.606199) },
         { id: 3, latLng: new L.LatLng(45.604430, 24.618988) },
         { id: 4, latLng: new L.LatLng(45.596924, 24.677782) },
