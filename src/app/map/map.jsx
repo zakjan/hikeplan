@@ -53,7 +53,7 @@ var Map = React.createClass({
     //   serviceUrl: 'http://router.project-osrm.org/viaroute',
     // });
     this.router = new L.Routing.YOURS({
-      serviceUrl: 'http://localhost:3000/route',
+      serviceUrl: '/route',
     });
   },
 
