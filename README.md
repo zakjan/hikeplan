@@ -1,3 +1,3 @@
 # HikePlan
 
-Hike route planning web application.
+Hike route planning web application
