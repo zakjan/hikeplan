@@ -1,7 +1,7 @@
 {
   "name": "hikeplan",
   "version": "0.0.0",
-  "description": "HikePlan",
+  "description": "Hike route planning web application",
   "author": "Jan Zak <zj@zakjan.cz>",
   "private": true,
   "scripts": {
