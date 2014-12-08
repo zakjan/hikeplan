@@ -30,7 +30,7 @@ var setupApiProxy = function(app) {
     var apiUrl = 'http://www.yournavigation.org/api/1.0/gosmore.php?' + querystring.stringify(req.query);
     req.pipe(request(apiUrl)).pipe(res);
   });
-}
+};
 
 
 var setup = function() {
@@ -44,7 +44,17 @@ var setup = function() {
   app.listen(process.env.PORT || 3000, function() {
     console.info('Express server started');
   });
-}
+};
+
+var setupPing = function() {
+  var ping = function() {
+    request(process.env.BASE_URL);
+  };
+
+  ping();
+  setInterval(ping, 30*60*1000); // 30m
+};
 
 
 setup();
+setupPing();
