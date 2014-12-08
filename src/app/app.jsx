@@ -5,13 +5,14 @@ var App = React.createClass({
     return {
       center: new L.LatLng(45.601944, 24.616944),
       zoom: 10,
-      waypointNextId: 6,
+      waypointNextId: 7,
       waypoints: [
         { id: 1, latLng: new L.LatLng(45.652778, 24.355278) },
         { id: 2, latLng: new L.LatLng(45.599146, 24.606199) },
         { id: 3, latLng: new L.LatLng(45.604430, 24.618988) },
-        { id: 4, latLng: new L.LatLng(45.599444, 24.736111) },
-        { id: 5, latLng: new L.LatLng(45.695449, 24.739665) },
+        { id: 4, latLng: new L.LatLng(45.596924, 24.677782) },
+        { id: 5, latLng: new L.LatLng(45.599444, 24.736111) },
+        { id: 6, latLng: new L.LatLng(45.695449, 24.739665) },
       ],
       route: {},
       routeLoading: false,
