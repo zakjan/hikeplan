@@ -65,6 +65,7 @@ gulp.task('build-app-index', function() {
     'app/sidebarBox/sidebarBox.css',
     'app/waypointsBox/waypointBox.css',
     'app/routeStatsBox/routeStatsBox.css',
+    'app/map/map.css',
   ];
   var scripts = [
     'vendor/lodash/dist/lodash.js',
