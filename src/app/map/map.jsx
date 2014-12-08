@@ -63,14 +63,13 @@ var Map = React.createClass({
       waypoints: this.props.waypoints,
     });
 
-    this.routing.getPlan().on('waypointschanged', () => {
-      this.props.onChangeWaypoints(this.routing.getWaypoints());
-    });
+    this.routing.on('routingstart', () => { this.props.onRoutingStart(); });
+    this.routing.on('routesfound', (e) => { this.props.onRoutingSuccess(e.route); });
+    this.routing.on('routingerror', (e) => { this.props.onRoutingFail(e.error); });
+    this.routing.getPlan().on('waypointschanged', (e) => { this.props.onChangeWaypoints(e.waypoints); });
 
     this.map.addControl(this.routing);
-    this.routing.route({
-      geometryOnly: true,
-    });
+    this.routing.route();
   },
 
   componentDidMount: function() {

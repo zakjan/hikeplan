@@ -47,8 +47,14 @@ var setup = function() {
 };
 
 var setupPing = function() {
+  var baseUrl = process.env.BASE_URL;
+
+  if (!baseUrl) {
+    return;
+  }
+
   var ping = function() {
-    request(process.env.BASE_URL);
+    request(baseUrl);
   };
 
   ping();

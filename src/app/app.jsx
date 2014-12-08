@@ -73,6 +73,19 @@ var App = React.createClass({
     this.setState({ waypoints: waypoints });
   },
 
+  routingStart: function() {
+    this.setState({ routeLoading: true });
+  },
+
+  routingSuccess: function(waypoints, route) {
+    this.setState({ routeLoading: false });
+  },
+
+  routingFail: function(e) {
+    console.error(e);
+    this.setState({ routeLoading: false });
+  },
+
   render: function() {
     return (
       <div className="app">
@@ -97,6 +110,9 @@ var App = React.createClass({
             onChangeCenter={this.changeCenter}
             onChangeZoom={this.changeZoom}
             onChangeWaypoints={this.changeWaypoints}
+            onRoutingStart={this.routingStart}
+            onRoutingSuccess={this.routingSuccess}
+            onRoutingFail={this.routingFail}
           />
         </div>
       </div>
