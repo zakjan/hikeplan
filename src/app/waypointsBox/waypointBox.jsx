@@ -44,7 +44,7 @@ var WaypointBox = React.createClass({
       <div className={className}>
         <div className="waypoint-box">
           <div className="waypoint-box-head" title={this.props.waypoint.id}>
-            @
+            <i className="fa fa-map-marker"></i>
           </div>
           <div className="waypoint-box-body">
             <input type="text" className="form-control" valueLink={this.linkState('value')} onBlur={this.changeWaypoint} />
