@@ -47,21 +47,6 @@ var setup = function() {
   });
 };
 
-var setupPing = function() {
-  var baseUrl = process.env.BASE_URL;
-
-  if (!baseUrl) {
-    return;
-  }
-
-  var ping = function() {
-    request(baseUrl);
-  };
-
-  ping();
-  setInterval(ping, 30*60*1000); // 30m
-};
-
 
 setup();
 herokuSelfPing(process.env.BASE_URL);
