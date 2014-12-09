@@ -33,6 +33,7 @@
     "react": "~0.12.1",
     "request": "~2.48.0",
     "run-sequence": "~1.0.2",
-    "serve-static": "~1.7.1"
+    "serve-static": "~1.7.1",
+    "numeral": "~1.5.3"
   }
 }

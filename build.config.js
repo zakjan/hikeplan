@@ -16,6 +16,7 @@ var vendorScripts = [
   'react/dist/react-with-addons.js',
   'leaflet/dist/leaflet-src.js',
   'leaflet-routing-machine/dist/leaflet-routing-machine.js',
+  'numeral/numeral.js',
 ];
 var vendorOthers = [
   'bootstrap/dist/css/bootstrap.css.map',
@@ -47,6 +48,7 @@ var appScripts = [
   'vendor/react/dist/react-with-addons.js',
   'vendor/leaflet/dist/leaflet-src.js',
   'vendor/leaflet-routing-machine/dist/leaflet-routing-machine.js',
+  'vendor/numeral/numeral.js',
   'app/app.js',
   'app/header/header.js',
   'app/sidebar/sidebar.js',

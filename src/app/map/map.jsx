@@ -55,7 +55,7 @@ var Map = React.createClass({
     });
 
     this.routing.on('routingstart', () => { this.props.onRoutingStart(); });
-    this.routing.on('routesfound', (e) => { this.props.onRoutingSuccess(e.route); });
+    this.routing.on('routesfound', (e) => { this.props.onRoutingSuccess(e.routes[0]); });
     this.routing.on('routingerror', (e) => { this.props.onRoutingFail(e.error); });
     this.routing.getPlan().on('waypointschanged', (e) => { this.props.onChangeWaypoints(e.waypoints); });
 

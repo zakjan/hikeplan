@@ -14,7 +14,7 @@ var App = React.createClass({
         { id: 5, latLng: new L.LatLng(45.599444, 24.736111) },
         { id: 6, latLng: new L.LatLng(45.695449, 24.739665) },
       ],
-      route: {},
+      route: null,
       routeLoading: false,
     };
   },
@@ -100,16 +100,16 @@ var App = React.createClass({
   },
 
   routingStart: function() {
-    this.setState({ routeLoading: true });
+    this.setState({ route: null, routeLoading: true });
   },
 
-  routingSuccess: function(waypoints, route) {
-    this.setState({ routeLoading: false });
+  routingSuccess: function(route) {
+    this.setState({ route: route, routeLoading: false });
   },
 
   routingFail: function(e) {
     console.error(e);
-    this.setState({ routeLoading: false });
+    this.setState({ route: null, routeLoading: false });
   },
 
   render: function() {

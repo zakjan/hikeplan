@@ -36,6 +36,24 @@ var parseWaypoints = function(waypoints) {
   return waypoints.map(function(x) { return x.split(/,/); });
 };
 
+var parseRoutingResult = function(body) {
+  return {
+    coordinates: body.coordinates,
+    distance: parseFloat(parseFloat(body.properties.distance).toFixed(3)),
+  };
+};
+
+var computeTotal = function(routes) {
+  var distances = routes.map(function(x) { return x.distance; });
+
+  var distance = _.reduce(distances, function(sum, num) { return sum + num; }, 0);
+  distance = parseFloat(distance.toFixed(3));
+
+  return {
+    distance: distance,
+  }
+};
+
 var getRouting = function(req, res) {
   var waypoints = parseWaypoints(req.query.waypoints);
 
@@ -63,8 +81,15 @@ var getRouting = function(req, res) {
   });
 
   Q.all(promises).then(function(results) {
-    var route = results.map(function(x) { return x.body.coordinates; });
-    res.send(route);
+    var segments = results.map(function(x) { return parseRoutingResult(x.body); });
+    var total = computeTotal(segments);
+
+    var resData = {
+      segments: segments,
+      total: total,
+    };
+
+    res.send(resData);
   }).fail(function(results) {
     res.status(500).send({ error: 'Error while retrieving route.'});
   });
