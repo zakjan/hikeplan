@@ -8,6 +8,9 @@
     "start": "node server.js",
     "postinstall": "gulp compile"
   },
+  "engines": {
+    "node": "0.10.x"
+  },
   "dependencies": {
     "bootstrap": "~3.3.1",
     "express": "~4.10.2",

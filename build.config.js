@@ -29,7 +29,6 @@ var vendorOthers = [
   'leaflet/dist/images/marker-icon.png',
   'leaflet/dist/images/marker-shadow.png',
 ];
-var vendorFiles = [].concat.call([], vendorStyles, vendorScripts, vendorOthers);
 
 var appStyles = [
   'vendor/bootstrap/dist/css/bootstrap.css',
@@ -60,6 +59,7 @@ var appScripts = [
   'app/map/map.js',
   'app/init.js',
 ];
+var appOthers = []; // TODO
 
 var externalStyles = [];
 var externalScripts = [];
@@ -73,7 +73,7 @@ module.exports = {
   build: {
     dest: buildDir,
     vendor: {
-      src: vendorFiles.map(function(x) { return vendorSrcDir + '/' + x; }),
+      src: [].concat.call([], vendorStyles, vendorScripts, vendorOthers).map(function(x) { return vendorSrcDir + '/' + x; }),
       base: vendorSrcDir,
       dest: buildDir + '/' + vendorDestDir,
     },
