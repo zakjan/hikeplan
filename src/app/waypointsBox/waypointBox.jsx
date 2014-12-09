@@ -36,22 +36,31 @@ var WaypointBox = React.createClass({
 
   render: function() {
     var className = React.addons.classSet({
-      'form-group': true,
+      'waypoint-box': true,
       'has-error': !this.state.valid,
     });
 
     return (
       <div className={className}>
-        <div className="waypoint-box">
-          <div className="waypoint-box-head" title={this.props.waypoint.id}>
-            <i className="fa fa-map-marker"></i>
+        <div className="waypoint-box-head" title={this.props.waypoint.id}>
+          <i className="fa fa-map-marker"></i>
+        </div>
+        <div className="waypoint-box-body">
+          <input type="text" className="form-control" valueLink={this.linkState('value')} onBlur={this.changeWaypoint} />
+        </div>
+        <div className="waypoint-box-foot">
+          <div className="waypoint-box-sort">
+            <a className="waypoint-box-icon-link waypoint-box-move-up" onClick={this.props.onMoveUpWaypoint}>
+              <i className="fa fa-caret-up"></i>
+            </a>
+            <a className="waypoint-box-icon-link waypoint-box-move-down" onClick={this.props.onMoveDownWaypoint}>
+              <i className="fa fa-caret-down"></i>
+            </a>
           </div>
-          <div className="waypoint-box-body">
-            <input type="text" className="form-control" valueLink={this.linkState('value')} onBlur={this.changeWaypoint} />
-          </div>
-          <div className="waypoint-box-foot">
-            <a className="close" onClick={this.props.onRemoveWaypoint}>&times;</a>
-          </div>
+          &nbsp;
+          <a className="waypoint-box-icon-link" onClick={this.props.onRemoveWaypoint}>
+            <i className="fa fa-close"></i>
+          </a>
         </div>
       </div>
     );

@@ -3,7 +3,7 @@
 }
 
 .waypoint-box-head {
-  flex: 0 0 15px;
+  margin-right: 10px;
 }
 
 .waypoint-box-body {
@@ -11,9 +11,13 @@
 }
 
 .waypoint-box-foot {
-  flex: 0 0 15px;
+  margin-left: 10px;
 }
 
+
+.waypoint-box {
+  margin-bottom: 5px;
+}
 
 .waypoint-box-head, .waypoint-box-foot {
   line-height: 24px;
@@ -37,8 +41,31 @@
   text-align: right;
 }
 
-.waypoint-box-foot .close {
-  font-size: 16px;
+.waypoint-box-icon-link {
+  color: #000000;
+  opacity: 0.2;
+  cursor: pointer;
   vertical-align: middle;
-  float: none;
+
+  &:hover {
+    color: #000000;
+    opacity: 0.5;
+  }
+}
+
+.waypoint-box:first-child .waypoint-box-move-up,
+.waypoint-box:last-child .waypoint-box-move-down {
+  opacity: 0.1 !important;
+  cursor: auto;
+}
+
+.waypoint-box-sort {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+
+  .waypoint-box-icon-link {
+    line-height: 12px;
+    height: 12px;
+  }
 }

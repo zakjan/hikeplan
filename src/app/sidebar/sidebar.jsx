@@ -12,6 +12,8 @@ var Sidebar = React.createClass({
               onReverseWaypoints={this.props.onReverseWaypoints}
               onChangeWaypoint={this.props.onChangeWaypoint}
               onRemoveWaypoint={this.props.onRemoveWaypoint}
+              onMoveUpWaypoint={this.props.onMoveUpWaypoint}
+              onMoveDownWaypoint={this.props.onMoveDownWaypoint}
             />
           </SidebarBox>
           <SidebarBox title="Route stats" loading={this.props.routeLoading}>

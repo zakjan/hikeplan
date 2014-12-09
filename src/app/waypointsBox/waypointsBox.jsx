@@ -4,16 +4,20 @@ var WaypointsBox = React.createClass({
   render: function() {
     return (
       <form>
-        {
-          this.props.waypoints.map(waypoint =>
-            <WaypointBox
-              key={waypoint.id}
-              waypoint={waypoint}
-              onChangeWaypoint={this.props.onChangeWaypoint.bind(null, waypoint.id)}
-              onRemoveWaypoint={this.props.onRemoveWaypoint.bind(null, waypoint.id)}
-            />
-          )
-        }
+        <div className="form-group">
+          {
+            this.props.waypoints.map(waypoint =>
+              <WaypointBox
+                key={waypoint.id}
+                waypoint={waypoint}
+                onChangeWaypoint={this.props.onChangeWaypoint.bind(null, waypoint.id)}
+                onRemoveWaypoint={this.props.onRemoveWaypoint.bind(null, waypoint.id)}
+                onMoveUpWaypoint={this.props.onMoveUpWaypoint.bind(null, waypoint.id)}
+                onMoveDownWaypoint={this.props.onMoveDownWaypoint.bind(null, waypoint.id)}
+              />
+            )
+          }
+        </div>
         <div className="form-group">
           <a className="btn btn-default btn-xs" onClick={this.props.onAddWaypoint}><i className="fa fa-plus fa-fw"></i>&nbsp;Add waypoint</a>
           &nbsp;

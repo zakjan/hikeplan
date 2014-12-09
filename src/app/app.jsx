@@ -60,6 +60,32 @@ var App = React.createClass({
     this.setState({ waypoints: waypoints });
   },
 
+  moveUpWaypoint: function(waypointId) {
+    var waypointIndex = _.findIndex(this.state.waypoints, x => x.id == waypointId);
+    if (waypointIndex == -1 || waypointIndex == 0) {
+      return;
+    }
+
+    var waypoints = _.clone(this.state.waypoints);
+    var tmp = waypoints[waypointIndex];
+    waypoints[waypointIndex] = waypoints[waypointIndex - 1];
+    waypoints[waypointIndex - 1] = tmp;
+    this.setState({ waypoints: waypoints });
+  },
+
+  moveDownWaypoint: function(waypointId) {
+    var waypointIndex = _.findIndex(this.state.waypoints, x => x.id == waypointId);
+    if (waypointIndex == -1 || waypointIndex == this.state.waypoints.length - 1) {
+      return;
+    }
+
+    var waypoints = _.clone(this.state.waypoints);
+    var tmp = waypoints[waypointIndex];
+    waypoints[waypointIndex] = waypoints[waypointIndex + 1];
+    waypoints[waypointIndex + 1] = tmp;
+    this.setState({ waypoints: waypoints });
+  },
+
   changeCenter: function(center) {
     this.setState({ center: center });
   },
@@ -98,6 +124,8 @@ var App = React.createClass({
             onReverseWaypoints={this.reverseWaypoints}
             onChangeWaypoint={this.changeWaypoint}
             onRemoveWaypoint={this.removeWaypoint}
+            onMoveUpWaypoint={this.moveUpWaypoint}
+            onMoveDownWaypoint={this.moveDownWaypoint}
 
             route={this.state.route}
             routeLoading={this.state.routeLoading}
