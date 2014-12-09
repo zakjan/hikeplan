@@ -16,7 +16,6 @@ var vendorScripts = [
   'react/dist/react-with-addons.js',
   'leaflet/dist/leaflet-src.js',
   'leaflet-routing-machine/dist/leaflet-routing-machine.js',
-  'leaflet-routing-yours/src/L.Routing.YOURS.js',
 ];
 var vendorOthers = [
   'bootstrap/dist/css/bootstrap.css.map',
@@ -48,7 +47,6 @@ var appScripts = [
   'vendor/react/dist/react-with-addons.js',
   'vendor/leaflet/dist/leaflet-src.js',
   'vendor/leaflet-routing-machine/dist/leaflet-routing-machine.js',
-  'vendor/leaflet-routing-yours/src/L.Routing.YOURS.js',
   'app/app.js',
   'app/header/header.js',
   'app/sidebar/sidebar.js',
@@ -57,6 +55,7 @@ var appScripts = [
   'app/waypointsBox/waypointBox.js',
   'app/routeStatsBox/routeStatsBox.js',
   'app/map/map.js',
+  'app/map/mapRouting.js',
   'app/init.js',
 ];
 var appOthers = []; // TODO
@@ -82,7 +81,7 @@ module.exports = {
       dest: buildDir,
     },
     scripts: {
-      src: appDir + '/**/*.jsx',
+      src: [appDir + '/**/*.js', appDir + '/**/*.jsx'],
       dest: buildDir,
     },
     index: {

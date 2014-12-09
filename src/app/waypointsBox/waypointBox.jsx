@@ -11,7 +11,7 @@ var WaypointBox = React.createClass({
   },
 
   changeWaypoint: function() {
-    var match = this.state.value.match(/^(-?\d+\.?\d*), (-?\d+\.?\d*)$/);
+    var match = this.state.value.match(/^(\-?\d+\.?\d*), (\-?\d+\.?\d*)$/);
     if (match) {
       var waypoint = _.clone(this.props.waypoint);
       waypoint.latLng = new L.LatLng(parseFloat(match[1]), parseFloat(match[2]));

@@ -48,18 +48,9 @@ var Map = React.createClass({
     this.map.addControl(layers);
   },
 
-  initRouter: function() {
-    // this.router = new L.Routing.OSRM({
-    //   serviceUrl: 'http://router.project-osrm.org/viaroute',
-    // });
-    this.router = new L.Routing.YOURS({
-      serviceUrl: '/route',
-    });
-  },
-
   initRouting: function() {
     this.routing = new L.Routing.Control({
-      router: this.router,
+      router: MapRouting,
       waypoints: this.props.waypoints,
     });
 
@@ -69,13 +60,11 @@ var Map = React.createClass({
     this.routing.getPlan().on('waypointschanged', (e) => { this.props.onChangeWaypoints(e.waypoints); });
 
     this.map.addControl(this.routing);
-    this.routing.route();
   },
 
   componentDidMount: function() {
     this.initMap();
     this.initLayers();
-    this.initRouter();
     this.initRouting();
   },
 
