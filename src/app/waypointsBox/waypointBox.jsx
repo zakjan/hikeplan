@@ -49,15 +49,14 @@ var WaypointBox = React.createClass({
           <input type="text" className="form-control" valueLink={this.linkState('value')} onBlur={this.changeWaypoint} />
         </div>
         <div className="waypoint-box-foot">
-          <div className="waypoint-box-sort">
+          <span className="waypoint-box-sort">
             <a className="waypoint-box-icon-link waypoint-box-move-up" onClick={this.props.onMoveUpWaypoint}>
               <i className="fa fa-caret-up"></i>
             </a>
             <a className="waypoint-box-icon-link waypoint-box-move-down" onClick={this.props.onMoveDownWaypoint}>
               <i className="fa fa-caret-down"></i>
             </a>
-          </div>
-          &nbsp;
+          </span>
           <a className="waypoint-box-icon-link" onClick={this.props.onRemoveWaypoint}>
             <i className="fa fa-close"></i>
           </a>
