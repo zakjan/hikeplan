@@ -1,1 +1,1 @@
-web: sh -c 'gulp build && npm start'
+web: sh -c 'gulp compile && npm start --production'

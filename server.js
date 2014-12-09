@@ -12,13 +12,11 @@ var url = require('url');
 
 
 var setupMiddlewares = function(app) {
-  if (!process.env.NODE_ENV || process.env.NODE_ENV == 'development'); {
-    app.use(morgan('dev'));
-  }
+  app.use(morgan('dev'));
 };
 
 var setupRoutes = function(app) {
-  var staticRoot = path.join(process.cwd(), 'build');
+  var staticRoot = path.join(process.cwd(), process.env.NODE_ENV == 'production' ? 'dist' : 'build');
 
   app.get('/', function(req, res) {
     res.sendFile(path.join(staticRoot, 'index.html'));

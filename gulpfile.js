@@ -4,107 +4,99 @@ var gulp = require('gulp');
 var runSequence = require('run-sequence');
 
 var clean = require('gulp-clean');
+var cssmin = require('gulp-cssmin');
 var ejs = require('gulp-ejs');
 var less = require('gulp-less');
 var react = require('gulp-react');
 var to5 = require('gulp-6to5');
+var uglify = require('gulp-uglify');
 
+var config = require('./build.config.js');
+
+
+// ----- Clean -----
 
 gulp.task('build-clean', function() {
-  return gulp.src('build')
+  return gulp.src(config.build.dest)
     .pipe(clean());
 });
 
+gulp.task('compile-clean', function() {
+  return gulp.src(config.compile.dest)
+    .pipe(clean());
+});
+
+gulp.task('clean', ['build-clean', 'compile-clean']);
+
+
+// ----- Styles / scripts / assets -----
 
 gulp.task('build-vendor', function() {
-  return gulp.src([
-    'node_modules/bootstrap/dist/css/bootstrap.css',
-    'node_modules/bootstrap/dist/css/bootstrap.css.map',
-    'node_modules/font-awesome/css/font-awesome.css',
-    'node_modules/font-awesome/fonts/fontawesome-webfont.eot',
-    'node_modules/font-awesome/fonts/fontawesome-webfont.svg',
-    'node_modules/font-awesome/fonts/fontawesome-webfont.ttf',
-    'node_modules/font-awesome/fonts/fontawesome-webfont.woff',
-    'node_modules/font-awesome/fonts/FontAwesome.otf',
-    'node_modules/lodash/dist/lodash.js',
-    'node_modules/jquery/dist/jquery.js',
-    'node_modules/react/dist/react-with-addons.js',
-    'node_modules/leaflet/dist/leaflet.css',
-    'node_modules/leaflet/dist/leaflet-src.js',
-    'node_modules/leaflet/dist/images/layers.png',
-    'node_modules/leaflet/dist/images/marker-icon.png',
-    'node_modules/leaflet/dist/images/marker-shadow.png',
-    'node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.js',
-    'node_modules/leaflet-routing-yours/src/L.Routing.YOURS.js',
-  ], { base: 'node_modules' })
-    .pipe(gulp.dest('build/vendor'));
+  return gulp.src(config.build.vendor.src, { base: config.build.vendor.base })
+    .pipe(gulp.dest(config.build.vendor.dest));
 });
 
-
-gulp.task('build-app-css', function() {
-  return gulp.src('src/app/**/*.less')
+gulp.task('build-styles', function() {
+  return gulp.src(config.build.styles.src)
     .pipe(less())
-    .pipe(gulp.dest('build/app'));
+    .pipe(gulp.dest(config.build.styles.dest));
 });
 
-gulp.task('build-app-js', function() {
-  return gulp.src('src/app/**/*.jsx')
+gulp.task('build-scripts', function() {
+  return gulp.src(config.build.scripts.src)
     .pipe(react())
     .pipe(to5())
-    .pipe(gulp.dest('build/app'));
+    .pipe(gulp.dest(config.build.scripts.dest));
 });
 
-gulp.task('build-app-index', function() {
-  var styles = [
-    'vendor/bootstrap/dist/css/bootstrap.css',
-    'vendor/font-awesome/css/font-awesome.css',
-    'vendor/leaflet/dist/leaflet.css',
-    'app/app.css',
-    'app/header/header.css',
-    'app/sidebar/sidebar.css',
-    'app/sidebarBox/sidebarBox.css',
-    'app/waypointsBox/waypointBox.css',
-    'app/routeStatsBox/routeStatsBox.css',
-    'app/map/map.css',
-  ];
-  var scripts = [
-    'vendor/lodash/dist/lodash.js',
-    'vendor/jquery/dist/jquery.js',
-    'vendor/react/dist/react-with-addons.js',
-    'vendor/leaflet/dist/leaflet-src.js',
-    'vendor/leaflet-routing-machine/dist/leaflet-routing-machine.js',
-    'vendor/leaflet-routing-yours/src/L.Routing.YOURS.js',
-    'app/app.js',
-    'app/header/header.js',
-    'app/sidebar/sidebar.js',
-    'app/sidebarBox/sidebarBox.js',
-    'app/waypointsBox/waypointsBox.js',
-    'app/waypointsBox/waypointBox.js',
-    'app/routeStatsBox/routeStatsBox.js',
-    'app/map/map.js',
-    'app/init.js',
-  ];
-
-  return gulp.src('src/index.html')
-    .pipe(ejs({
-      styles: styles,
-      scripts: scripts,
-    }))
-    .pipe(gulp.dest('build'));
+gulp.task('compile-vendor', function() {
+  return gulp.src(config.compile.vendor.src, { base: config.compile.vendor.base })
+    .pipe(gulp.dest(config.compile.vendor.dest));
 });
 
-gulp.task('build-app', ['build-app-css', 'build-app-js', 'build-app-index'])
+gulp.task('compile-styles', function() {
+  return gulp.src(config.compile.styles.src, { base: config.compile.styles.base })
+    .pipe(cssmin())
+    .pipe(gulp.dest(config.compile.styles.dest));
+});
 
-
-gulp.task('build', function(done) {
-  runSequence('build-clean', ['build-vendor', 'build-app'], done);
+gulp.task('compile-scripts', function() {
+  return gulp.src(config.compile.scripts.src, { base: config.compile.scripts.base })
+    .pipe(uglify())
+    .pipe(gulp.dest(config.compile.scripts.dest));
 });
 
 
-gulp.task('watch', ['build'], function() {
-  gulp.watch('src/**/*.less', ['build-app-css']);
-  gulp.watch('src/**/*.jsx', ['build-app-js']);
-  gulp.watch('src/index.html', ['build-app-index']);
+// ----- Index -----
+
+gulp.task('build-index', function() {
+  return gulp.src(config.build.index.src)
+    .pipe(ejs(config.build.index.options))
+    .pipe(gulp.dest(config.build.index.dest));
 });
+
+gulp.task('compile-index', function() {
+  return gulp.src(config.compile.index.src)
+    .pipe(ejs(config.compile.index.options))
+    .pipe(gulp.dest(config.compile.index.dest));
+});
+
+
+// ----- Main tasks -----
 
 gulp.task('default', ['build']);
+
+gulp.task('build', function(done) {
+  runSequence('clean', ['build-vendor', 'build-styles', 'build-scripts', 'build-index'], done);
+});
+
+gulp.task('compile', function(done) {
+  runSequence('build', 'compile-clean', ['compile-vendor', 'compile-styles', 'compile-scripts', 'compile-index'], done);
+});
+
+gulp.task('watch', ['build'], function() {
+  gulp.watch('build.config.js', ['build']);
+  gulp.watch(config.build.styles.src, ['build-styles']);
+  gulp.watch(config.build.scripts.src, ['build-scripts']);
+  gulp.watch(config.build.index.src, ['build-index']);
+});
