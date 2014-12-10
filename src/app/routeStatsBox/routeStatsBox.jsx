@@ -15,7 +15,7 @@ var RouteStatsBox = React.createClass({
 
   render: function() {
     if (!this.props.route) {
-      return <p>No route</p>;
+      return <p>No route<br /><br /><br /><br /><br /><br /></p>;
     }
 
     return (
