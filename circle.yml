@@ -1,0 +1,27 @@
+machine:
+  environment:
+    PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin
+    NODE_ENV: test
+
+dependencies:
+  cache_directories:
+    - node_modules
+  override:
+    - npm prune && npm install
+
+test:
+  override:
+    - gulp compile
+  post:
+    - sed -i -e 's/\/node_modules//' .gitignore
+    - sed -i -e 's/\/dist//' .gitignore
+    - git config user.name "circleci"
+    - git config user.email "zj@zakjan.cz"
+    - git add -A
+    - git commit -m "compile"
+
+deployment:
+  master:
+    branch: master
+    commands:
+      - git push -f git@heroku.com:${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}:master
