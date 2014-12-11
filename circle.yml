@@ -13,7 +13,6 @@ test:
   override:
     - gulp compile
   post:
-    - sed -i -e 's/\/node_modules//' .gitignore
     - sed -i -e 's/\/dist//' .gitignore
     - git config user.name "circleci"
     - git config user.email "zj@zakjan.cz"

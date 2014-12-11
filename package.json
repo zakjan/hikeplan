@@ -10,29 +10,31 @@
   "engines": {
     "node": "0.10.x"
   },
-  "dependencies": {
-    "bootstrap": "~3.3.1",
-    "express": "~4.10.2",
-    "font-awesome": "~4.2.0",
+  "devDependencies": {
     "gulp-6to5": "~1.0.2",
-    "gulp-clean": "~0.3.1",
     "gulp-cssmin": "~0.1.6",
     "gulp-ejs": "~1.0.0",
     "gulp-less": "~2.0.1",
     "gulp-react": "~2.0.0",
+    "gulp-rimraf": "^0.1.1",
     "gulp-uglify": "~1.0.2",
     "gulp": "~3.8.10",
+    "run-sequence": "~1.0.2"
+  },
+  "dependencies": {
+    "bootstrap": "~3.3.1",
+    "express": "~4.10.2",
+    "font-awesome": "~4.2.0",
     "heroku-self-ping": "~1.1.1",
     "jquery": "~2.1.1",
-    "leaflet-routing-machine": "~1.1.0",
     "leaflet": "~0.7.3",
+    "leaflet-routing-machine": "~1.1.0",
     "lodash": "~2.4.1",
     "morgan": "~1.5.0",
+    "numeral": "~1.5.3",
     "q": "~1.1.2",
     "react": "~0.12.1",
     "request": "~2.48.0",
-    "run-sequence": "~1.0.2",
-    "serve-static": "~1.7.1",
-    "numeral": "~1.5.3"
+    "serve-static": "~1.7.1"
   }
 }

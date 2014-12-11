@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 
-var clean = require('gulp-clean');
+var rimraf = require('gulp-rimraf');
 var cssmin = require('gulp-cssmin');
 var ejs = require('gulp-ejs');
 var less = require('gulp-less');
@@ -18,12 +18,12 @@ var config = require('./build.config.js');
 
 gulp.task('build-clean', function() {
   return gulp.src(config.build.dest)
-    .pipe(clean());
+    .pipe(rimraf());
 });
 
 gulp.task('compile-clean', function() {
   return gulp.src(config.compile.dest)
-    .pipe(clean());
+    .pipe(rimraf());
 });
 
 gulp.task('clean', ['build-clean', 'compile-clean']);
