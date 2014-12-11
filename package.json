@@ -11,14 +11,14 @@
     "node": "0.10.x"
   },
   "devDependencies": {
+    "del": "^1.1.0",
+    "gulp": "~3.8.10",
     "gulp-6to5": "~1.0.2",
     "gulp-cssmin": "~0.1.6",
     "gulp-ejs": "~1.0.0",
     "gulp-less": "~2.0.1",
     "gulp-react": "~2.0.0",
-    "gulp-rimraf": "^0.1.1",
     "gulp-uglify": "~1.0.2",
-    "gulp": "~3.8.10",
     "run-sequence": "~1.0.2"
   },
   "dependencies": {

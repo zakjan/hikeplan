@@ -1,9 +1,9 @@
 'use strict';
 
+var del = require('del');
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 
-var rimraf = require('gulp-rimraf');
 var cssmin = require('gulp-cssmin');
 var ejs = require('gulp-ejs');
 var less = require('gulp-less');
@@ -16,14 +16,12 @@ var config = require('./build.config.js');
 
 // ----- Clean -----
 
-gulp.task('build-clean', function() {
-  return gulp.src(config.build.dest)
-    .pipe(rimraf());
+gulp.task('build-clean', function(cb) {
+  del(config.build.dest, cb);
 });
 
-gulp.task('compile-clean', function() {
-  return gulp.src(config.compile.dest)
-    .pipe(rimraf());
+gulp.task('compile-clean', function(cb) {
+  del(config.compile.dest, cb);
 });
 
 gulp.task('clean', ['build-clean', 'compile-clean']);
