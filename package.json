@@ -5,8 +5,7 @@
   "author": "Jan Zak <zj@zakjan.cz>",
   "private": true,
   "scripts": {
-    "start": "node server.js",
-    "postinstall": "gulp compile"
+    "start": "node server.js"
   },
   "engines": {
     "node": "0.10.x"
