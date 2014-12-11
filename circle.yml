@@ -24,4 +24,4 @@ deployment:
   master:
     branch: master
     commands:
-      - git push -f git@heroku.com:zakjan/${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}:master
+      - git push -f git@heroku.com:${CIRCLE_PROJECT_REPONAME}.git ${CIRCLE_BRANCH}:master
