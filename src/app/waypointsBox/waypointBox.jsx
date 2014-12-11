@@ -5,7 +5,7 @@ var WaypointBox = React.createClass({
 
   getInitialState: function() {
     return {
-      value: '0, 0',
+      value: this.props.waypoint.latLng.lat + ', ' + this.props.waypoint.latLng.lng,
       valid: true,
     };
   },
@@ -18,11 +18,6 @@ var WaypointBox = React.createClass({
       this.props.onChangeWaypoint(waypoint);
     }
     this.setState({ valid: !!match });
-  },
-
-  componentWillMount: function() {
-    var value = this.props.waypoint.latLng.lat + ', ' + this.props.waypoint.latLng.lng;
-    this.setState({ value: value });
   },
 
   componentWillReceiveProps: function(nextProps) {
