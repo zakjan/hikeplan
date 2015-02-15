@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "bootstrap": "~3.3.1",
+    "compression": "~1.4.0",
     "express": "~4.10.2",
     "font-awesome": "~4.2.0",
     "heroku-self-ping": "~1.1.1",

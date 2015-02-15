@@ -2,4 +2,4 @@
 
 Hiking route planner
 
-[![Circle CI](https://circleci.com/gh/zakjan/hikeplan.svg?style=svg)](https://circleci.com/gh/zakjan/hikeplan)
+[![CircleCI](https://img.shields.io/circleci/project/zakjan/hikeplan.svg)](https://circleci.com/gh/zakjan/hikeplan)
