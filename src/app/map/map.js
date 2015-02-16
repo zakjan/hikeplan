@@ -1,5 +1,14 @@
 'use strict';
 
+require('./map.less');
+
+var _ = require('lodash');
+var L = require('leaflet');
+var React = require('react');
+
+var MapRouting = require('./mapRouting.js');
+
+
 var Map = React.createClass({
   initMap: function() {
     this.map = new L.Map(this.getDOMNode());
@@ -80,3 +89,6 @@ var Map = React.createClass({
     );
   },
 });
+
+
+module.exports = Map;

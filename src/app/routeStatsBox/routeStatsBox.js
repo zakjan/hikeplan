@@ -1,16 +1,22 @@
 'use strict';
 
+require('./routeStatsBox.less');
+
+var Numeral = require('numeral');
+var React = require('react');
+
+
 var RouteStatsBox = React.createClass({
   formatDistanceInKilometers: function(value) {
-    return numeral(value).format('0.0') + ' km';
+    return Numeral(value).format('0.0') + ' km';
   },
 
   formatDistanceInMeters: function(value) {
-    return numeral(value).format('0,0') + ' m';
+    return Numeral(value).format('0,0') + ' m';
   },
 
   formatTime: function(value) {
-    return numeral(value).format('0:00');
+    return Numeral(value).format('0:00');
   },
 
   render: function() {
@@ -31,3 +37,6 @@ var RouteStatsBox = React.createClass({
     );
   },
 });
+
+
+module.exports = RouteStatsBox;

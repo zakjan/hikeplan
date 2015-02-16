@@ -1,5 +1,10 @@
 'use strict';
 
+var React = require('react');
+
+var WaypointBox = require('./waypointBox');
+
+
 var WaypointsBox = React.createClass({
   render: function() {
     return (
@@ -27,3 +32,6 @@ var WaypointsBox = React.createClass({
     );
   },
 });
+
+
+module.exports = WaypointsBox;

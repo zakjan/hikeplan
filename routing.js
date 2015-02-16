@@ -1,8 +1,8 @@
 'use strict';
 
 var _ = require('lodash');
-var Q = require('q');
-var request = require('request');
+var Promise = require('bluebird');
+var Request = Promise.promisify(require('request'));
 
 
 var routingBaseUrl = 'http://www.yournavigation.org/api/1.0/gosmore.php';
@@ -10,7 +10,7 @@ var waypointRegex = /^(\-?\d+\.?\d*),(\-?\d+\.?\d*)$/
 
 
 var sendRequest = function(reqData) {
-  return Q.nfcall(request, reqData).spread(function(res, body) {
+  return Request(reqData).spread(function(res, body) {
     var isError = Math.floor(res.statusCode / 100) != 2;
 
     if (isError) {
@@ -80,8 +80,10 @@ var getRouting = function(req, res) {
     return sendRequest(reqData);
   });
 
-  Q.all(promises).then(function(results) {
-    var segments = results.map(function(x) { return parseRoutingResult(x.body); });
+  Promise.all(promises).then(function(results) {
+    var segments = results.map(function(x) {
+      return parseRoutingResult(x.body);
+    });
     var total = computeTotal(segments);
 
     var resData = {
@@ -90,7 +92,7 @@ var getRouting = function(req, res) {
     };
 
     res.send(resData);
-  }).fail(function(results) {
+  }).catch(function(results) {
     res.status(500).send({ error: 'Error while retrieving route.'});
   });
 };

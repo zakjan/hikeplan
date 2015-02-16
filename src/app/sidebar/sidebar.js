@@ -1,5 +1,14 @@
 'use strict';
 
+require('./sidebar.less');
+
+var React = require('react');
+
+var RouteStatsBox = require('../routeStatsBox/routeStatsBox');
+var SidebarBox = require('../sidebarBox/sidebarBox');
+var WaypointsBox = require('../waypointsBox/waypointsBox');
+
+
 var Sidebar = React.createClass({
   render: function() {
     return (
@@ -21,9 +30,14 @@ var Sidebar = React.createClass({
           </SidebarBox>
         </div>
         <div className="sidebar-foot">
-          With passion for hiking, made by <a href="http://www.zakjan.cz">zakjan</a>
+          Source code available on <a href="https://github.com/zakjan/hikeplan">GitHub</a>.
+          <br />
+          With passion for hiking, made by <a href="http://zakjan.cz">zakjan</a>.
         </div>
       </div>
     );
   },
 });
+
+
+module.exports = Sidebar;

@@ -1,5 +1,16 @@
 'use strict';
 
+require('./app.less');
+
+var _ = require('lodash');
+var L = require('leaflet');
+var React = require('react');
+
+var Header = require('./header/header');
+var Map = require('./map/map');
+var Sidebar = require('./sidebar/sidebar');
+
+
 var App = React.createClass({
   getInitialState: function() {
     return {
@@ -147,3 +158,6 @@ var App = React.createClass({
     );
   },
 });
+
+
+module.exports = App;

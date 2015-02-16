@@ -1,5 +1,12 @@
 'use strict';
 
+require('./waypointBox.less');
+
+var _ = require('lodash');
+var L = require('leaflet');
+var React = require('react');
+
+
 var WaypointBox = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
 
@@ -60,3 +67,6 @@ var WaypointBox = React.createClass({
     );
   },
 });
+
+
+module.exports = WaypointBox;

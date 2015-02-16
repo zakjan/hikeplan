@@ -5,9 +5,7 @@ var compression = require('compression');
 var express = require('express');
 var herokuSelfPing = require('heroku-self-ping');
 var morgan = require('morgan');
-var path = require('path');
 var serveStatic = require('serve-static');
-var url = require('url');
 
 var routing = require('./routing');
 
@@ -19,10 +17,8 @@ var setupMiddlewares = function(app) {
 };
 
 var setupRoutes = function(app) {
-  var staticRoot = path.join(process.cwd(), process.env.NODE_ENV == 'production' ? 'dist' : 'build');
-
   app.get('/routing', routing.getRouting);
-  app.use('/', serveStatic(staticRoot));
+  app.use('/', serveStatic(__dirname + '/dist'));
 };
 
 var app = express();

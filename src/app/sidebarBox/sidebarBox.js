@@ -1,5 +1,10 @@
 'use strict';
 
+require('./sidebarBox.less');
+
+var React = require('react');
+
+
 var SidebarBox = React.createClass({
   render: function() {
     var className = React.addons.classSet({
@@ -29,3 +34,6 @@ var SidebarBox = React.createClass({
     );
   },
 });
+
+
+module.exports = SidebarBox;

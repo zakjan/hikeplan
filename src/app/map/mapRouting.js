@@ -1,17 +1,23 @@
 'use strict';
 
+var _ = require('lodash');
+var Promise = require('bluebird');
+var Request = Promise.promisify(require('browser-request'));
+
+
 var MapRouting = {
   route: function(waypoints, callback, context, options) {
     context = context || callback;
 
     var reqData = {
       url: '/routing',
-      data: {
+      qs: {
         waypoints: waypoints.map(x => '' + x.latLng.lat + ',' + x.latLng.lng).join(';'),
       },
+      json: true,
     };
 
-    $.ajax(reqData).then(function(body) {
+    Request(reqData).spread(function(res, body) {
       var coordinates = _.flatten(body.segments.map(x => x.coordinates), true).map(x => [x[1], x[0]]);
 
       var route = {
@@ -27,8 +33,11 @@ var MapRouting = {
       };
 
       callback.call(context, null, [route]);
-    }).fail(function(body) {
+    }).catch(function(body) {
       callback.call(context, body);
     });
   },
 };
+
+
+module.exports = MapRouting;
