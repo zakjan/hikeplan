@@ -13,6 +13,7 @@
   "devDependencies": {
     "babel-core": "~4.0.1",
     "babel-loader": "~4.0.0",
+    "babel-runtime": "~4.0.1",
     "css-loader": "~0.9.1",
     "file-loader": "~0.8.1",
     "html-webpack-plugin": "~1.1.0",

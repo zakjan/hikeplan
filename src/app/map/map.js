@@ -25,7 +25,6 @@ var Map = React.createClass({
       attribution: 'tiles &copy; <a target="_blank" href="http://www.thunderforest.com">Thunderforest</a> ' +
         '(<a target="_blank" href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA 2.0</a>)'
     });
-    this.map.addLayer(thunderforestLandscapeLayer);
 
     var openStreetMapLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -51,13 +50,16 @@ var Map = React.createClass({
     }, {
       'Waymarked Trails': waymarkedTrailsLayer,
     });
+
+    this.map.addLayer(thunderforestLandscapeLayer);
+    this.map.addLayer(waymarkedTrailsLayer);
     this.map.addControl(layers);
   },
 
   initRouting: function() {
     this.routing = new L.Routing.Control({
       router: MapRouting,
-      waypoints: this.props.waypoints,
+      waypoints: this.props.waypoints.waypoints,
     });
 
     this.routing.on('routingstart', () => { this.props.onRoutingStart(); });
@@ -75,8 +77,8 @@ var Map = React.createClass({
   },
 
   componentDidUpdate: function(prevProps) {
-    if (!_.isEqual(prevProps.waypoints.map(x => x.latLng), this.props.waypoints.map(x => x.latLng))) {
-      this.routing.setWaypoints(this.props.waypoints);
+    if (!_.isEqual(this.routing.getWaypoints().map(x => x.latLng), this.props.waypoints.waypoints.map(x => x.latLng))) {
+      this.routing.setWaypoints(this.props.waypoints.waypoints.map(x => x.latLng));
     }
   },
 

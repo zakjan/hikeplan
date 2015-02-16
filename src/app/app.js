@@ -10,98 +10,72 @@ var Header = require('./header/header');
 var Map = require('./map/map');
 var Sidebar = require('./sidebar/sidebar');
 
+var Waypoint = require('../common/waypoint');
+var Waypoints = require('../common/waypoints');
+
 
 var App = React.createClass({
   getInitialState: function() {
     return {
       center: new L.LatLng(45.601944, 24.616944),
       zoom: 10,
-      waypoints: [],
-      waypointNextId: 1,
+      waypoints: new Waypoints(),
       route: null,
       routeLoading: false,
     };
   },
 
-  loadSampleRoute: function() {
-    this.setState({
-      waypoints: [
-        { id: 1, latLng: new L.LatLng(45.648638, 24.356754) },
-        { id: 2, latLng: new L.LatLng(45.599146, 24.606199) },
-        { id: 3, latLng: new L.LatLng(45.604430, 24.618988) },
-        { id: 4, latLng: new L.LatLng(45.596924, 24.677782) },
-        { id: 5, latLng: new L.LatLng(45.599444, 24.736111) },
-        { id: 6, latLng: new L.LatLng(45.695449, 24.739665) },
-      ],
-      waypointNextId: 7,
-    });
+  loadSampleWaypoints: function() {
+    var route = '45.648638,24.356754;45.599146,24.606199;45.60443,24.618988;45.596924,24.677782;45.599444,24.736111;45.695449,24.739665'; // Fagaras
+    this.setState({ waypoints: Waypoints.fromString(route) });
   },
 
-  createWaypoint: function(waypoint) {
-    return {
-      id: waypoint.id || this.state.waypointNextId++,
-      latLng: new L.LatLng(waypoint.latLng.lat.toFixed(6), waypoint.latLng.lng.toFixed(6)),
-    };
+  clearWaypoints: function() {
+    this.setState({ waypoints: new Waypoints() });
+  },
+
+  addEmptyWaypoint: function() {
+    this.state.waypoints.waypoints.push(new Waypoint());
+    this.forceUpdate();
   },
 
   addWaypoint: function(latLng) {
-    var waypoints = _.clone(this.state.waypoints);
-    waypoints.push(this.createWaypoint({ latLng: latLng || new L.LatLng(0, 0) }));
-    this.setState({ waypoints: waypoints });
+    var i = _.findIndex(this.state.waypoints.waypoints, x => !x.latLng);
+    if (i !== -1) {
+      this.state.waypoints.waypoints[i].latLng = latLng;
+    } else {
+      this.state.waypoints.waypoints.push(new Waypoint(latLng));
+    }
+    this.forceUpdate();
   },
 
   reverseWaypoints: function() {
-    var waypoints = _.clone(this.state.waypoints);
-    waypoints.reverse();
-    this.setState({ waypoints: waypoints });
+    this.state.waypoints.waypoints.reverse();
+    this.forceUpdate();
   },
 
   changeWaypoint: function(waypointId, waypoint) {
-    var waypointIndex = _.findIndex(this.state.waypoints, x => x.id == waypointId);
-    if (waypointIndex == -1) {
-      return;
-    }
-
-    var waypoints = _.clone(this.state.waypoints);
-    waypoints[waypointIndex] = waypoint;
-    this.setState({ waypoints: waypoints });
+    var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
+    this.state.waypoints.waypoints[i] = element;
+    this.forceUpdate();
   },
 
   removeWaypoint: function(waypointId) {
-    var waypointIndex = _.findIndex(this.state.waypoints, x => x.id == waypointId);
-    if (waypointIndex == -1) {
-      return;
-    }
-
-    var waypoints = _.clone(this.state.waypoints);
-    waypoints.splice(waypointIndex, 1);
-    this.setState({ waypoints: waypoints });
+    var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
+    this.state.waypoints.removeElementAt(i);
+    this.forceUpdate();
   },
 
   moveUpWaypoint: function(waypointId) {
-    var waypointIndex = _.findIndex(this.state.waypoints, x => x.id == waypointId);
-    if (waypointIndex == -1 || waypointIndex == 0) {
-      return;
-    }
-
-    var waypoints = _.clone(this.state.waypoints);
-    var tmp = waypoints[waypointIndex];
-    waypoints[waypointIndex] = waypoints[waypointIndex - 1];
-    waypoints[waypointIndex - 1] = tmp;
-    this.setState({ waypoints: waypoints });
+    var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
+    this.state.waypoints.moveElementAt(i, i - 1);
+    this.forceUpdate();
   },
 
   moveDownWaypoint: function(waypointId) {
-    var waypointIndex = _.findIndex(this.state.waypoints, x => x.id == waypointId);
-    if (waypointIndex == -1 || waypointIndex == this.state.waypoints.length - 1) {
-      return;
-    }
-
-    var waypoints = _.clone(this.state.waypoints);
-    var tmp = waypoints[waypointIndex];
-    waypoints[waypointIndex] = waypoints[waypointIndex + 1];
-    waypoints[waypointIndex + 1] = tmp;
-    this.setState({ waypoints: waypoints });
+    var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
+    this.state.waypoints.moveElementAt(i, i + 1);
+    this.forceUpdate();
   },
 
   changeCenter: function(center) {
@@ -113,7 +87,7 @@ var App = React.createClass({
   },
 
   changeWaypoints: function(waypoints) {
-    var waypoints = waypoints.filter(x => !!x.latLng).map(this.createWaypoint, this);
+    var waypoints = new Waypoints(waypoints.map(x => new Waypoint(x.latLng)));
     this.setState({ waypoints: waypoints });
   },
 
@@ -130,17 +104,24 @@ var App = React.createClass({
     this.setState({ route: null, routeLoading: false });
   },
 
+  componentDidMount: function() {
+    this.setState({ waypoints: Waypoints.fromString(location.hash) });
+  },
+
   render: function() {
+    location.hash = this.state.waypoints.toString();
+
     return (
       <div className="app">
         <Header
-          onClickLoadSampleRoute={this.loadSampleRoute}
+          onClickLoadSampleWaypoints={this.loadSampleWaypoints}
+          onClickClearWaypoints={this.clearWaypoints}
         />
 
         <div className="main">
           <Sidebar
             waypoints={this.state.waypoints}
-            onAddWaypoint={this.addWaypoint}
+            onAddEmptyWaypoint={this.addEmptyWaypoint}
             onReverseWaypoints={this.reverseWaypoints}
             onChangeWaypoint={this.changeWaypoint}
             onRemoveWaypoint={this.removeWaypoint}

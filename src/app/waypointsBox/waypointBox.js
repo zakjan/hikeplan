@@ -6,23 +6,23 @@ var _ = require('lodash');
 var L = require('leaflet');
 var React = require('react');
 
+var Waypoint = require('../../common/waypoint');
+
 
 var WaypointBox = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
 
   getInitialState: function() {
     return {
-      value: this.props.waypoint.latLng.lat + ', ' + this.props.waypoint.latLng.lng,
+      value: this.props.waypoint.toString(),
       valid: true,
     };
   },
 
   changeWaypoint: function() {
-    var match = this.state.value.match(/^(\-?\d+\.?\d*), (\-?\d+\.?\d*)$/);
+    var match = this.state.value.match(/^(\-?\d+\.?\d*),(\-?\d+\.?\d*)$/);
     if (match) {
-      var waypoint = _.clone(this.props.waypoint);
-      waypoint.latLng = new L.LatLng(parseFloat(match[1]), parseFloat(match[2]));
-      this.props.onChangeWaypoint(waypoint);
+      this.props.onChangeWaypoint(Waypoint.fromString(this.state.value));
     }
     this.setState({ valid: !!match });
   },
@@ -32,7 +32,7 @@ var WaypointBox = React.createClass({
       return;
     }
 
-    var value = nextProps.waypoint.latLng.lat + ', ' + nextProps.waypoint.latLng.lng;
+    var value = nextProps.waypoint.toString();
     this.setState({ value: value });
   },
 

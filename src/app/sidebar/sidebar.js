@@ -17,7 +17,7 @@ var Sidebar = React.createClass({
           <SidebarBox title="Waypoints">
             <WaypointsBox
               waypoints={this.props.waypoints}
-              onAddWaypoint={this.props.onAddWaypoint}
+              onAddEmptyWaypoint={this.props.onAddEmptyWaypoint}
               onReverseWaypoints={this.props.onReverseWaypoints}
               onChangeWaypoint={this.props.onChangeWaypoint}
               onRemoveWaypoint={this.props.onRemoveWaypoint}

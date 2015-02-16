@@ -11,7 +11,7 @@ var WaypointsBox = React.createClass({
       <form>
         <div className="form-group">
           {
-            this.props.waypoints.map(waypoint =>
+            this.props.waypoints.waypoints.map(waypoint =>
               <WaypointBox
                 key={waypoint.id}
                 waypoint={waypoint}
@@ -24,7 +24,7 @@ var WaypointsBox = React.createClass({
           }
         </div>
         <div className="form-group">
-          <a className="btn btn-default btn-xs" onClick={this.props.onAddWaypoint}><i className="fa fa-plus fa-fw"></i>&nbsp;Add waypoint</a>
+          <a className="btn btn-default btn-xs" onClick={this.props.onAddEmptyWaypoint}><i className="fa fa-plus fa-fw"></i>&nbsp;Add waypoint</a>
           &nbsp;
           <a className="btn btn-default btn-xs" onClick={this.props.onReverseWaypoints}><i className="fa fa-exchange fa-rotate-90 fa-fw"></i>&nbsp;Reverse direction</a>
         </div>

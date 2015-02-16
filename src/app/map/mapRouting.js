@@ -18,7 +18,7 @@ var MapRouting = {
     var reqData = {
       url: '/routing',
       qs: {
-        waypoints: waypoints.map(x => '' + x.latLng.lat + ',' + x.latLng.lng).join(';'),
+        waypoints: waypoints.map(x => x.latLng.lat + ',' + x.latLng.lng).join(';'),
       },
       json: true,
     };
