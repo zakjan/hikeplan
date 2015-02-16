@@ -6,20 +6,8 @@ var Numeral = require('numeral');
 var React = require('react');
 
 
-var RouteStatsBox = React.createClass({
-  formatDistanceInKilometers: function(value) {
-    return Numeral(value).format('0.0') + ' km';
-  },
-
-  formatDistanceInMeters: function(value) {
-    return Numeral(value).format('0,0') + ' m';
-  },
-
-  formatTime: function(value) {
-    return Numeral(value).format('0:00');
-  },
-
-  render: function() {
+class RouteStatsBox extends React.Component {
+  render() {
     if (!this.props.route) {
       return <p>No route<br /><br /><br /><br /><br /><br /></p>;
     }
@@ -35,8 +23,20 @@ var RouteStatsBox = React.createClass({
         <p>Altitude chart</p>
       </div>
     );
-  },
-});
+  }
+
+  formatDistanceInKilometers(value) {
+    return Numeral(value).format('0.0') + ' km';
+  }
+
+  formatDistanceInMeters(value) {
+    return Numeral(value).format('0,0') + ' m';
+  }
+
+  formatTime(value) {
+    return Numeral(value).format('0:00');
+  }
+}
 
 
 module.exports = RouteStatsBox;

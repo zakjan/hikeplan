@@ -5,8 +5,8 @@ var React = require('react');
 var WaypointBox = require('./waypointBox');
 
 
-var WaypointsBox = React.createClass({
-  render: function() {
+class WaypointsBox extends React.Component {
+  render() {
     return (
       <form>
         <div className="form-group">
@@ -30,8 +30,8 @@ var WaypointsBox = React.createClass({
         </div>
       </form>
     );
-  },
-});
+  }
+}
 
 
 module.exports = WaypointsBox;

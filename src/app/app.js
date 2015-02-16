@@ -14,101 +14,40 @@ var Waypoint = require('../common/waypoint');
 var Waypoints = require('../common/waypoints');
 
 
-var App = React.createClass({
-  getInitialState: function() {
-    return {
-      center: new L.LatLng(45.601944, 24.616944),
-      zoom: 10,
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      center: new L.LatLng(50.088134, 14.4416265),
+      zoom: 4,
       waypoints: new Waypoints(),
       route: null,
       routeLoading: false,
     };
-  },
 
-  loadSampleWaypoints: function() {
-    var route = '45.648638,24.356754;45.599146,24.606199;45.60443,24.618988;45.596924,24.677782;45.599444,24.736111;45.695449,24.739665'; // Fagaras
-    this.setState({ waypoints: Waypoints.fromString(route) });
-  },
+    this.loadSampleWaypoints = this.loadSampleWaypoints.bind(this)
+    this.clearWaypoints = this.clearWaypoints.bind(this)
+    this.addEmptyWaypoint = this.addEmptyWaypoint.bind(this)
+    this.addWaypoint = this.addWaypoint.bind(this)
+    this.reverseWaypoints = this.reverseWaypoints.bind(this)
+    this.changeWaypoint = this.changeWaypoint.bind(this)
+    this.removeWaypoint = this.removeWaypoint.bind(this)
+    this.moveUpWaypoint = this.moveUpWaypoint.bind(this)
+    this.moveDownWaypoint = this.moveDownWaypoint.bind(this)
+    this.changeCenter = this.changeCenter.bind(this)
+    this.changeZoom = this.changeZoom.bind(this)
+    this.changeWaypoints = this.changeWaypoints.bind(this)
+    this.routingStart = this.routingStart.bind(this)
+    this.routingSuccess = this.routingSuccess.bind(this)
+    this.routingFail = this.routingFail.bind(this)
+  }
 
-  clearWaypoints: function() {
-    this.setState({ waypoints: new Waypoints() });
-  },
-
-  addEmptyWaypoint: function() {
-    this.state.waypoints.waypoints.push(new Waypoint());
-    this.forceUpdate();
-  },
-
-  addWaypoint: function(latLng) {
-    var i = _.findIndex(this.state.waypoints.waypoints, x => !x.latLng);
-    if (i !== -1) {
-      this.state.waypoints.waypoints[i].latLng = latLng;
-    } else {
-      this.state.waypoints.waypoints.push(new Waypoint(latLng));
-    }
-    this.forceUpdate();
-  },
-
-  reverseWaypoints: function() {
-    this.state.waypoints.waypoints.reverse();
-    this.forceUpdate();
-  },
-
-  changeWaypoint: function(waypointId, waypoint) {
-    var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
-    this.state.waypoints.waypoints[i] = element;
-    this.forceUpdate();
-  },
-
-  removeWaypoint: function(waypointId) {
-    var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
-    this.state.waypoints.removeElementAt(i);
-    this.forceUpdate();
-  },
-
-  moveUpWaypoint: function(waypointId) {
-    var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
-    this.state.waypoints.moveElementAt(i, i - 1);
-    this.forceUpdate();
-  },
-
-  moveDownWaypoint: function(waypointId) {
-    var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
-    this.state.waypoints.moveElementAt(i, i + 1);
-    this.forceUpdate();
-  },
-
-  changeCenter: function(center) {
-    this.setState({ center: center });
-  },
-
-  changeZoom: function(zoom) {
-    this.setState({ zoom: zoom });
-  },
-
-  changeWaypoints: function(waypoints) {
-    var waypoints = new Waypoints(waypoints.map(x => new Waypoint(x.latLng)));
-    this.setState({ waypoints: waypoints });
-  },
-
-  routingStart: function() {
-    this.setState({ route: null, routeLoading: true });
-  },
-
-  routingSuccess: function(route) {
-    this.setState({ route: route, routeLoading: false });
-  },
-
-  routingFail: function(e) {
-    console.error(e);
-    this.setState({ route: null, routeLoading: false });
-  },
-
-  componentDidMount: function() {
+  componentDidMount() {
     this.setState({ waypoints: Waypoints.fromString(location.hash) });
-  },
+  }
 
-  render: function() {
+  render() {
     location.hash = this.state.waypoints.toString();
 
     return (
@@ -147,8 +86,87 @@ var App = React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+
+  loadSampleWaypoints() {
+    var route = '45.648638,24.356754;45.599146,24.606199;45.60443,24.618988;45.596924,24.677782;45.599444,24.736111;45.695449,24.739665'; // Fagaras
+    this.setState({ waypoints: Waypoints.fromString(route) });
+  }
+
+  clearWaypoints() {
+    this.setState({ waypoints: new Waypoints() });
+  }
+
+  addEmptyWaypoint() {
+    this.state.waypoints.waypoints.push(new Waypoint());
+    this.forceUpdate();
+  }
+
+  addWaypoint(latLng) {
+    var i = _.findIndex(this.state.waypoints.waypoints, x => !x.latLng);
+    if (i !== -1) {
+      this.state.waypoints.waypoints[i].latLng = latLng;
+    } else {
+      this.state.waypoints.waypoints.push(new Waypoint(latLng));
+    }
+    this.forceUpdate();
+  }
+
+  reverseWaypoints() {
+    this.state.waypoints.waypoints.reverse();
+    this.forceUpdate();
+  }
+
+  changeWaypoint(waypointId, waypoint) {
+    var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
+    this.state.waypoints.waypoints[i] = waypoint;
+    this.forceUpdate();
+  }
+
+  removeWaypoint(waypointId) {
+    var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
+    this.state.waypoints.removeElementAt(i);
+    this.forceUpdate();
+  }
+
+  moveUpWaypoint(waypointId) {
+    var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
+    this.state.waypoints.moveElementAt(i, i - 1);
+    this.forceUpdate();
+  }
+
+  moveDownWaypoint(waypointId) {
+    var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
+    this.state.waypoints.moveElementAt(i, i + 1);
+    this.forceUpdate();
+  }
+
+  changeCenter(center) {
+    this.setState({ center: center });
+  }
+
+  changeZoom(zoom) {
+    this.setState({ zoom: zoom });
+  }
+
+  changeWaypoints(waypoints) {
+    var waypoints = new Waypoints(waypoints.map(x => new Waypoint(x.latLng)));
+    this.setState({ waypoints: waypoints });
+  }
+
+  routingStart() {
+    this.setState({ route: null, routeLoading: true });
+  }
+
+  routingSuccess(route) {
+    this.setState({ route: route, routeLoading: false });
+  }
+
+  routingFail(e) {
+    console.error(e);
+    this.setState({ route: null, routeLoading: false });
+  }
+}
 
 
 module.exports = App;

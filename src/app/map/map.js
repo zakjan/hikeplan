@@ -9,17 +9,35 @@ var React = require('react');
 var MapRouting = require('./mapRouting.js');
 
 
-var Map = React.createClass({
-  initMap: function() {
-    this.map = new L.Map(this.getDOMNode());
+class Map extends React.Component {
+  componentDidMount() {
+    this.initMap();
+    this.initLayers();
+    this.initRouting();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(this.routing.getWaypoints().map(x => x.latLng), this.props.waypoints.waypoints.map(x => x.latLng))) {
+      this.routing.setWaypoints(this.props.waypoints.waypoints.map(x => x.latLng));
+    }
+  }
+
+  render() {
+    return (
+      <div className="map" />
+    );
+  }
+
+  initMap() {
+    this.map = new L.Map(React.findDOMNode(this));
     this.map.setView(this.props.center, this.props.zoom);
 
     this.map.on('moveend', () => { this.props.onChangeCenter(this.map.getCenter()); });
     this.map.on('zoomend', () => { this.props.onChangeZoom(this.map.getZoom()); });
     this.map.on('click', (e) => { this.props.onClick(e.latlng); });
-  },
+  }
 
-  initLayers: function() {
+  initLayers() {
     var thunderforestLandscapeLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: 'tiles &copy; <a target="_blank" href="http://www.thunderforest.com">Thunderforest</a> ' +
@@ -54,9 +72,9 @@ var Map = React.createClass({
     this.map.addLayer(thunderforestLandscapeLayer);
     this.map.addLayer(waymarkedTrailsLayer);
     this.map.addControl(layers);
-  },
+  }
 
-  initRouting: function() {
+  initRouting() {
     this.routing = new L.Routing.Control({
       router: MapRouting,
       waypoints: this.props.waypoints.waypoints,
@@ -68,26 +86,8 @@ var Map = React.createClass({
     this.routing.getPlan().on('waypointschanged', (e) => { this.props.onChangeWaypoints(e.waypoints); });
 
     this.map.addControl(this.routing);
-  },
-
-  componentDidMount: function() {
-    this.initMap();
-    this.initLayers();
-    this.initRouting();
-  },
-
-  componentDidUpdate: function(prevProps) {
-    if (!_.isEqual(this.routing.getWaypoints().map(x => x.latLng), this.props.waypoints.waypoints.map(x => x.latLng))) {
-      this.routing.setWaypoints(this.props.waypoints.waypoints.map(x => x.latLng));
-    }
-  },
-
-  render: function() {
-    return (
-      <div className="map" />
-    );
-  },
-});
+  }
+}
 
 
 module.exports = Map;

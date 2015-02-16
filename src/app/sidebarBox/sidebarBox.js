@@ -5,8 +5,8 @@ require('./sidebarBox.less');
 var React = require('react');
 
 
-var SidebarBox = React.createClass({
-  render: function() {
+class SidebarBox extends React.Component {
+  render() {
     var className = React.addons.classSet({
       'sidebar-box': true,
       'loading': this.props.loading,
@@ -32,8 +32,8 @@ var SidebarBox = React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}
 
 
 module.exports = SidebarBox;

@@ -5,8 +5,8 @@ require('./header.less');
 var React = require('react');
 
 
-var Header = React.createClass({
-  render: function() {
+class Header extends React.Component {
+  render() {
     return (
       <header className="header">
         <div className="navbar navbar-inverse">
@@ -18,8 +18,8 @@ var Header = React.createClass({
         </div>
       </header>
     );
-  },
-});
+  }
+}
 
 
 module.exports = Header;

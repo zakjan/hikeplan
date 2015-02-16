@@ -4,22 +4,26 @@
 
 Hiking route planner. Server & client JS web application.
 
-## Development
+## Dependencies
 
-### Dependencies
 ```
 npm install -g webpack
 npm install
 ```
 
-### Run
+## Development
 
 ```
-webpack -w
+webpack -w   # watch
 npm start
 ```
 
-=> [http://localhost:3000](http://localhost:3000)
+## Production
+
+```
+webpack -p   # production
+npm start
+```
 
 ## Deployment
 

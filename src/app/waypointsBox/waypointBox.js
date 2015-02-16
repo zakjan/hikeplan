@@ -9,34 +9,30 @@ var React = require('react');
 var Waypoint = require('../../common/waypoint');
 
 
-var WaypointBox = React.createClass({
-  mixins: [React.addons.LinkedStateMixin],
+class WaypointBox extends React.Component {
+  constructor(props) {
+    super(props);
 
-  getInitialState: function() {
-    return {
+    this.state = {
       value: this.props.waypoint.toString(),
       valid: true,
     };
-  },
 
-  changeWaypoint: function() {
-    var match = this.state.value.match(/^(\-?\d+\.?\d*),(\-?\d+\.?\d*)$/);
-    if (match) {
-      this.props.onChangeWaypoint(Waypoint.fromString(this.state.value));
-    }
-    this.setState({ valid: !!match });
-  },
+    this.changeValue = this.changeValue.bind(this);
+    this.changeWaypoint = this.changeWaypoint.bind(this);
+  }
 
-  componentWillReceiveProps: function(nextProps) {
-    if (_.isEqual(this.props.waypoint.latLng, nextProps.waypoint.latLng)) {
+  componentWillReceiveProps(nextProps) {
+    var newValue = nextProps.waypoint.toString();
+
+    if (newValue === this.state.value) {
       return;
     }
 
-    var value = nextProps.waypoint.toString();
-    this.setState({ value: value });
-  },
+    this.setState({ value: newValue });
+  }
 
-  render: function() {
+  render() {
     var className = React.addons.classSet({
       'waypoint-box': true,
       'has-error': !this.state.valid,
@@ -48,7 +44,7 @@ var WaypointBox = React.createClass({
           <i className="fa fa-map-marker"></i>
         </div>
         <div className="waypoint-box-body">
-          <input type="text" className="form-control" valueLink={this.linkState('value')} onBlur={this.changeWaypoint} />
+          <input type="text" className="form-control" value={this.state.value} onChange={this.changeValue} onBlur={this.changeWaypoint} />
         </div>
         <div className="waypoint-box-foot">
           <span className="waypoint-box-sort">
@@ -65,8 +61,20 @@ var WaypointBox = React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+
+  changeValue(e) {
+    this.setState({ value: e.target.value });
+  }
+
+  changeWaypoint() {
+    var match = this.state.value.match(/^(\-?\d+\.?\d*),(\-?\d+\.?\d*)$/);
+    if (match) {
+      this.props.onChangeWaypoint(Waypoint.fromString(this.state.value));
+    }
+    this.setState({ valid: !!match });
+  }
+}
 
 
 module.exports = WaypointBox;

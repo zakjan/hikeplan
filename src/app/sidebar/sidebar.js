@@ -9,8 +9,8 @@ var SidebarBox = require('../sidebarBox/sidebarBox');
 var WaypointsBox = require('../waypointsBox/waypointsBox');
 
 
-var Sidebar = React.createClass({
-  render: function() {
+class Sidebar extends React.Component {
+  render() {
     return (
       <div className="sidebar">
         <div className="sidebar-body">
@@ -36,8 +36,8 @@ var Sidebar = React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}
 
 
 module.exports = Sidebar;
