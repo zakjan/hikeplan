@@ -9,6 +9,12 @@ var MapRouting = {
   route: function(waypoints, callback, context, options) {
     context = context || callback;
 
+    // return empty route for less than 2 waypoints
+    if (waypoints.length < 2) {
+      callback.call(context, null, []);
+      return;
+    }
+
     var reqData = {
       url: '/routing',
       qs: {

@@ -14,12 +14,9 @@ var Map = React.createClass({
     this.map = new L.Map(this.getDOMNode());
     this.map.setView(this.props.center, this.props.zoom);
 
-    this.map.on('moveend', () => {
-      this.props.onChangeCenter(this.map.getCenter());
-    });
-    this.map.on('zoomend', () => {
-      this.props.onChangeZoom(this.map.getZoom());
-    });
+    this.map.on('moveend', () => { this.props.onChangeCenter(this.map.getCenter()); });
+    this.map.on('zoomend', () => { this.props.onChangeZoom(this.map.getZoom()); });
+    this.map.on('click', (e) => { this.props.onClick(e.latlng); });
   },
 
   initLayers: function() {

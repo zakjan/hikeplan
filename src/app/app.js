@@ -16,7 +16,15 @@ var App = React.createClass({
     return {
       center: new L.LatLng(45.601944, 24.616944),
       zoom: 10,
-      waypointNextId: 7,
+      waypoints: [],
+      waypointNextId: 1,
+      route: null,
+      routeLoading: false,
+    };
+  },
+
+  loadSampleRoute: function() {
+    this.setState({
       waypoints: [
         { id: 1, latLng: new L.LatLng(45.648638, 24.356754) },
         { id: 2, latLng: new L.LatLng(45.599146, 24.606199) },
@@ -25,9 +33,8 @@ var App = React.createClass({
         { id: 5, latLng: new L.LatLng(45.599444, 24.736111) },
         { id: 6, latLng: new L.LatLng(45.695449, 24.739665) },
       ],
-      route: null,
-      routeLoading: true,
-    };
+      waypointNextId: 7,
+    });
   },
 
   createWaypoint: function(waypoint) {
@@ -37,9 +44,9 @@ var App = React.createClass({
     };
   },
 
-  addWaypoint: function() {
+  addWaypoint: function(latLng) {
     var waypoints = _.clone(this.state.waypoints);
-    waypoints.push(this.createWaypoint({ latLng: new L.LatLng(0, 0) }));
+    waypoints.push(this.createWaypoint({ latLng: latLng || new L.LatLng(0, 0) }));
     this.setState({ waypoints: waypoints });
   },
 
@@ -106,7 +113,7 @@ var App = React.createClass({
   },
 
   changeWaypoints: function(waypoints) {
-    var waypoints = waypoints.map(this.createWaypoint, this);
+    var waypoints = waypoints.filter(x => !!x.latLng).map(this.createWaypoint, this);
     this.setState({ waypoints: waypoints });
   },
 
@@ -126,7 +133,9 @@ var App = React.createClass({
   render: function() {
     return (
       <div className="app">
-        <Header />
+        <Header
+          onClickLoadSampleRoute={this.loadSampleRoute}
+        />
 
         <div className="main">
           <Sidebar
@@ -148,6 +157,7 @@ var App = React.createClass({
             waypoints={this.state.waypoints}
             onChangeCenter={this.changeCenter}
             onChangeZoom={this.changeZoom}
+            onClick={this.addWaypoint}
             onChangeWaypoints={this.changeWaypoints}
             onRoutingStart={this.routingStart}
             onRoutingSuccess={this.routingSuccess}

@@ -11,6 +11,11 @@ var Header = React.createClass({
       <header className="header">
         <div className="navbar navbar-inverse">
           <a href="/" className="navbar-brand">HikePlan</a>
+          <ul className="nav navbar-nav">
+            <li>
+              <a onClick={this.props.onClickLoadSampleRoute}>Load sample route</a>
+            </li>
+          </ul>
         </div>
       </header>
     );
