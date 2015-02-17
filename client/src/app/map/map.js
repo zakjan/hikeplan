@@ -77,7 +77,7 @@ class Map extends React.Component {
   initRouting() {
     this.routing = new L.Routing.Control({
       router: new MapRouting(),
-      waypoints: this.props.waypoints.waypoints,
+      waypoints: this.props.waypoints.waypoints.map(x => x.latLng),
     });
 
     this.routing.on('routingstart', () => { this.props.onRoutingStart(); });

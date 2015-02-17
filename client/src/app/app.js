@@ -101,13 +101,9 @@ class App extends React.Component {
   }
 
   addWaypoint(latLng) {
-    // truncate insignificant digits
-    latLng.lat = parseFloat(latLng.lat.toFixed(6));
-    latLng.lng = parseFloat(latLng.lng.toFixed(6));
-
-    var i = _.findIndex(this.state.waypoints.waypoints, x => !x.latLng);
-    if (i !== -1) {
-      this.state.waypoints.waypoints[i].latLng = latLng;
+    var emptyIndex = _.findIndex(this.state.waypoints.waypoints, x => !x.latLng);
+    if (emptyIndex !== -1) {
+      this.state.waypoints.waypoints[emptyIndex].latLng = latLng;
     } else {
       this.state.waypoints.waypoints.push(new Waypoint(latLng));
     }
@@ -121,7 +117,7 @@ class App extends React.Component {
 
   changeWaypoint(waypointId, waypoint) {
     var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
-    this.state.waypoints.waypoints[i] = waypoint;
+    this.state.waypoints.waypoints[i].latLng = latLng;
     this.forceUpdate();
   }
 

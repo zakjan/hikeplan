@@ -22,14 +22,16 @@ class Waypoints {
   }
 
   moveElementAt(from, to) {
-    var waypoint = this.waypoints[from];
+    var min = Math.min(from, to);
+    var max = Math.max(from, to);
 
-    this.waypoints[from] = null;
     this.waypoints = [].concat(
-      this.waypoints.slice(0, to + 1),
-      [waypoint],
-      this.waypoints.slice(to + 1)
-    ).filter(x => x);
+      this.waypoints.slice(0, min),                                  // head
+      from == max ? [this.waypoints[from], this.waypoints[to]] : [], // RTL
+      this.waypoints.slice(min + 1, max),                            // body
+      from == min ? [this.waypoints[to], this.waypoints[from]] : [], // LTR
+      this.waypoints.slice(max + 1)                                  // tail
+    );
   }
 
   removeElementAt(i) {

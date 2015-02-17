@@ -8,8 +8,8 @@ dependencies:
 
 test:
   override:
-    - npm run build
-    - cd client && npm run build -- -p
+    - npm run dist
+    - cd client && npm run dist -- -p
   post:
     - sed -i -e '/dist/d' .gitignore
     - git config user.name "circleci"
