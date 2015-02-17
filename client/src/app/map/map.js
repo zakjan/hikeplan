@@ -6,7 +6,7 @@ var _ = require('lodash');
 var L = require('leaflet');
 var React = require('react');
 
-var MapRouting = require('./mapRouting.js');
+var MapRouting = require('./mapRouting');
 
 
 class Map extends React.Component {
@@ -76,13 +76,13 @@ class Map extends React.Component {
 
   initRouting() {
     this.routing = new L.Routing.Control({
-      router: MapRouting,
+      router: new MapRouting(),
       waypoints: this.props.waypoints.waypoints,
     });
 
     this.routing.on('routingstart', () => { this.props.onRoutingStart(); });
-    this.routing.on('routesfound', (e) => { this.props.onRoutingSuccess(e.routes[0]); });
-    this.routing.on('routingerror', (e) => { this.props.onRoutingFail(e.error); });
+    this.routing.on('routesfound', (e) => { this.props.onRoutingStop(e.routes[0]); });
+    this.routing.on('routingerror', () => { this.props.onRoutingStop(); });
     this.routing.getPlan().on('waypointschanged', (e) => { this.props.onChangeWaypoints(e.waypoints); });
 
     this.map.addControl(this.routing);

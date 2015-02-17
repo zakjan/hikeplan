@@ -5,39 +5,23 @@
   "author": "Jan Zak (http://zakjan.cz)",
   "private": true,
   "scripts": {
-    "start": "node server.js"
+    "build": "babel src --out-dir dist",
+    "start": "node dist/main.js"
   },
   "engines": {
     "node": "0.10.x"
   },
   "devDependencies": {
-    "babel-core": "~4.0.1",
-    "babel-loader": "~4.0.0",
-    "babel-runtime": "~4.0.1",
-    "css-loader": "~0.9.1",
-    "file-loader": "~0.8.1",
-    "html-webpack-plugin": "~1.1.0",
-    "less-loader": "~2.0.0",
-    "run-sequence": "~1.0.2",
-    "style-loader": "~0.8.3",
-    "webpack": "~1.5.3"
+    "babel": "4.0.2"
   },
   "dependencies": {
-    "bluebird": "~2.9.9",
-    "bootstrap": "~3.3.2",
-    "browser-request": "~0.3.3",
-    "compression": "~1.4.1",
-    "express": "~4.10.8",
-    "font-awesome": "~4.2.0",
-    "heroku-self-ping": "~1.1.1",
-    "leaflet-routing-machine": "~1.1.0",
-    "leaflet": "~0.7.3",
-    "less": "~2.4.0",
-    "lodash": "~2.4.1",
-    "morgan": "~1.5.1",
-    "numeral": "~1.5.3",
-    "react": "~0.13.0",
-    "request": "~2.53.0",
-    "serve-static": "~1.7.2"
+    "bluebird": "2.9.9",
+    "compression": "1.4.1",
+    "express": "4.10.8",
+    "heroku-self-ping": "1.1.1",
+    "lodash": "2.4.1",
+    "morgan": "1.5.1",
+    "request": "2.53.0",
+    "serve-static": "1.7.2"
   }
 }

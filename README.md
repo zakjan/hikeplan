@@ -7,22 +7,22 @@ Hiking route planner. Server & client JS web application.
 ## Dependencies
 
 ```
-npm install -g webpack
 npm install
+cd client && npm install
 ```
 
 ## Development
 
 ```
-webpack -w   # watch
-npm start
+npm run build && npm start
+cd client && npm run build -- -w   # watch
 ```
 
 ## Production
 
 ```
-webpack -p   # production
-npm start
+npm run build && npm start
+cd client && npm run build -- -p   # production
 ```
 
 ## Deployment

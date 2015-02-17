@@ -13,7 +13,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel?experimental&optional=selfContained'},
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel'},
       { test: /\.css$/, loader: 'style!css'},
       { test: /\.less$/, loader: 'style!css!less'},
       { test: /\.(png|jpg|gif|svg|woff|woff2|ttf|eot)(\?.*)?$/, loader: 'file?name=[path][name].[ext]' },

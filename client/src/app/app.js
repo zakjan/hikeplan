@@ -26,21 +26,20 @@ class App extends React.Component {
       routeLoading: false,
     };
 
-    this.loadSampleWaypoints = this.loadSampleWaypoints.bind(this)
-    this.clearWaypoints = this.clearWaypoints.bind(this)
-    this.addEmptyWaypoint = this.addEmptyWaypoint.bind(this)
-    this.addWaypoint = this.addWaypoint.bind(this)
-    this.reverseWaypoints = this.reverseWaypoints.bind(this)
-    this.changeWaypoint = this.changeWaypoint.bind(this)
-    this.removeWaypoint = this.removeWaypoint.bind(this)
-    this.moveUpWaypoint = this.moveUpWaypoint.bind(this)
-    this.moveDownWaypoint = this.moveDownWaypoint.bind(this)
-    this.changeCenter = this.changeCenter.bind(this)
-    this.changeZoom = this.changeZoom.bind(this)
-    this.changeWaypoints = this.changeWaypoints.bind(this)
-    this.routingStart = this.routingStart.bind(this)
-    this.routingSuccess = this.routingSuccess.bind(this)
-    this.routingFail = this.routingFail.bind(this)
+    this.loadSampleWaypoints = this.loadSampleWaypoints.bind(this);
+    this.clearWaypoints = this.clearWaypoints.bind(this);
+    this.addEmptyWaypoint = this.addEmptyWaypoint.bind(this);
+    this.addWaypoint = this.addWaypoint.bind(this);
+    this.reverseWaypoints = this.reverseWaypoints.bind(this);
+    this.changeWaypoint = this.changeWaypoint.bind(this);
+    this.removeWaypoint = this.removeWaypoint.bind(this);
+    this.moveUpWaypoint = this.moveUpWaypoint.bind(this);
+    this.moveDownWaypoint = this.moveDownWaypoint.bind(this);
+    this.changeCenter = this.changeCenter.bind(this);
+    this.changeZoom = this.changeZoom.bind(this);
+    this.changeWaypoints = this.changeWaypoints.bind(this);
+    this.routingStart = this.routingStart.bind(this);
+    this.routingStop = this.routingStop.bind(this);
   }
 
   componentDidMount() {
@@ -80,8 +79,7 @@ class App extends React.Component {
             onClick={this.addWaypoint}
             onChangeWaypoints={this.changeWaypoints}
             onRoutingStart={this.routingStart}
-            onRoutingSuccess={this.routingSuccess}
-            onRoutingFail={this.routingFail}
+            onRoutingStop={this.routingStop}
           />
         </div>
       </div>
@@ -103,6 +101,10 @@ class App extends React.Component {
   }
 
   addWaypoint(latLng) {
+    // truncate insignificant digits
+    latLng.lat = parseFloat(latLng.lat.toFixed(6));
+    latLng.lng = parseFloat(latLng.lng.toFixed(6));
+
     var i = _.findIndex(this.state.waypoints.waypoints, x => !x.latLng);
     if (i !== -1) {
       this.state.waypoints.waypoints[i].latLng = latLng;
@@ -158,13 +160,8 @@ class App extends React.Component {
     this.setState({ route: null, routeLoading: true });
   }
 
-  routingSuccess(route) {
+  routingStop(route) {
     this.setState({ route: route, routeLoading: false });
-  }
-
-  routingFail(e) {
-    console.error(e);
-    this.setState({ route: null, routeLoading: false });
   }
 }
 

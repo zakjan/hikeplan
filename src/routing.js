@@ -2,24 +2,13 @@
 
 var _ = require('lodash');
 var Promise = require('bluebird');
-var Request = Promise.promisify(require('request'));
+
+var request = require('./request');
 
 
 var routingBaseUrl = 'http://www.yournavigation.org/api/1.0/gosmore.php';
 var waypointRegex = /^(\-?\d+\.?\d*),(\-?\d+\.?\d*)$/
 
-
-var sendRequest = function(reqData) {
-  return Request(reqData).spread(function(res, body) {
-    var isError = Math.floor(res.statusCode / 100) != 2;
-
-    if (isError) {
-      throw new Error(res);
-    }
-
-    return res;
-  });
-};
 
 var parseWaypoints = function(waypoints) {
   if (!(waypoints && _.isString(waypoints))) {
@@ -77,7 +66,7 @@ var getRouting = function(req, res) {
       json: true,
     };
 
-    return sendRequest(reqData);
+    return request(reqData);
   });
 
   Promise.all(promises).then(function(results) {

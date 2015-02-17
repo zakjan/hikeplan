@@ -1,27 +1,34 @@
 'use strict';
 
-require('bootstrap/dist/css/bootstrap.css');
-require('font-awesome/css/font-awesome.css');
-require('leaflet/dist/leaflet.css');
-require('leaflet/dist/images/layers-2x.png');
-require('leaflet/dist/images/layers.png');
-require('leaflet/dist/images/marker-icon-2x.png');
-require('leaflet/dist/images/marker-icon.png');
-require('leaflet/dist/images/marker-shadow.png');
-require('leaflet-routing-machine/dist/leaflet-routing-machine.css');
-require('leaflet-routing-machine/dist/leaflet.routing.icons.png');
-require('leaflet-routing-machine/dist/leaflet.routing.icons.svg');
+var _ = require('lodash');
+var compression = require('compression');
+var express = require('express');
+var herokuSelfPing = require('heroku-self-ping');
+var morgan = require('morgan');
+var serveStatic = require('serve-static');
 
-var L = require('leaflet');
-var React = require('react');
-
-require('leaflet-routing-machine/src/L.Routing.Control.js');
-
-var App = require('./app/app');
+var routing = require('./routing');
 
 
-L.Icon.Default.imagePath = '_/node_modules/leaflet/dist/images';
+var setupMiddlewares = function(app) {
+  app.use(morgan('dev'));
+  app.use(compression());
+};
 
-document.addEventListener('DOMContentLoaded', function() {
-  React.render(<App />, document.body);
+var setupRoutes = function(app) {
+  app.get('/routing', routing.getRouting);
+  app.use('/', serveStatic(__dirname + '/../client/dist'));
+};
+
+
+var app = express();
+
+setupMiddlewares(app);
+setupRoutes(app);
+
+app.listen(process.env.PORT || 3000, function() {
+  console.info('Express server started');
 });
+
+
+herokuSelfPing(process.env.BASE_URL);

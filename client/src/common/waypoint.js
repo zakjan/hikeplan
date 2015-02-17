@@ -4,7 +4,7 @@ var L = require('leaflet')
 
 class Waypoint {
   constructor(latLng) {
-    this.id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+    this.id = Math.trunc(Math.random() * Number.MAX_SAFE_INTEGER);
     this.latLng = latLng;
   }
 

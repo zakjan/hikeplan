@@ -1,0 +1,35 @@
+{
+  "name": "hikeplan-client",
+  "version": "0.0.0",
+  "description": "Hiking route planner",
+  "author": "Jan Zak (http://zakjan.cz)",
+  "private": true,
+  "scripts": {
+    "build": "webpack"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "devDependencies": {
+    "babel-core": "4.0.1",
+    "babel-loader": "4.0.0",
+    "css-loader": "0.9.1",
+    "file-loader": "0.8.1",
+    "html-webpack-plugin": "1.1.0",
+    "less-loader": "2.0.0",
+    "run-sequence": "1.0.2",
+    "style-loader": "0.8.3",
+    "webpack": "1.5.3"
+  },
+  "dependencies": {
+    "bluebird": "2.9.9",
+    "bootstrap": "3.3.2",
+    "browser-request": "0.3.3",
+    "font-awesome": "4.2.0",
+    "leaflet-routing-machine": "1.1.0",
+    "leaflet": "0.7.3",
+    "lodash": "2.4.1",
+    "numeral": "1.5.3",
+    "react": "0.13.0-beta.2"
+  }
+}
