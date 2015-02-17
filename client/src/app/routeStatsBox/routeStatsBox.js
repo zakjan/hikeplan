@@ -15,10 +15,10 @@ class RouteStatsBox extends React.Component {
     return (
       <div className="route-stats-box">
         <dl className="dl-horizontal">
-          <dt>Distance:</dt><dd>{this.formatDistanceInKilometers(this.props.route.total.distance)}</dd>
-          <dt>Ascend:</dt><dd>{this.formatDistanceInMeters(this.props.route.total.ascend)}</dd>
-          <dt>Descend:</dt><dd>{this.formatDistanceInMeters(this.props.route.total.descend)}</dd>
-          <dt>Time:</dt><dd>{this.formatTime(this.props.route.total.time)}</dd>
+          <dt>Distance:</dt><dd>{this.formatDistanceInKilometers(this.props.route.distance)}</dd>
+          <dt>Ascend:</dt><dd>{this.formatDistanceInMeters(this.props.route.ascend)}</dd>
+          <dt>Descend:</dt><dd>{this.formatDistanceInMeters(this.props.route.descend)}</dd>
+          <dt>Time:</dt><dd>{this.formatTime(this.props.route.time)}</dd>
         </dl>
         <p>Altitude chart</p>
       </div>

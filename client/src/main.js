@@ -1,5 +1,6 @@
 'use strict';
 
+// require common assets
 require('bootstrap/dist/css/bootstrap.css');
 require('font-awesome/css/font-awesome.css');
 require('leaflet/dist/leaflet.css');
@@ -11,19 +12,21 @@ require('leaflet/dist/images/marker-shadow.png');
 require('leaflet-routing-machine/dist/leaflet-routing-machine.css');
 require('leaflet-routing-machine/dist/leaflet.routing.icons.png');
 require('leaflet-routing-machine/dist/leaflet.routing.icons.svg');
-
 require('./main.less');
 
+// init Leaflet
 var L = require('leaflet');
-var React = require('react');
-
-require('leaflet-routing-machine/src/L.Routing.Control.js');
-
-var App = require('./app/app');
-
-
 L.Icon.Default.imagePath = '_/node_modules/leaflet/dist/images';
 
+// init MapQuest
+var MAP_QUEST_API_KEY = 'Fmjtd|luu821ut2l,8a=o5-94bx06';
+require('mq-map');
+require('mq-routing');
+
+// run!
 document.addEventListener('DOMContentLoaded', function() {
+  var React = require('react');
+  var App = require('./app/app');
+
   React.render(<App />, document.body);
 });

@@ -14,8 +14,11 @@
     "babel-core": "4.0.1",
     "babel-loader": "4.0.0",
     "css-loader": "0.9.1",
+    "exports-loader": "0.6.2",
+    "expose-loader": "0.6.0",
     "file-loader": "0.8.1",
     "html-webpack-plugin": "1.1.0",
+    "imports-loader": "0.6.3",
     "less": "2.4.0",
     "less-loader": "2.0.0",
     "run-sequence": "1.0.2",
@@ -27,9 +30,9 @@
     "bootstrap": "3.3.2",
     "browser-request": "0.3.3",
     "font-awesome": "4.2.0",
-    "leaflet-routing-machine": "1.1.0",
     "leaflet": "0.7.3",
-    "lodash": "2.4.1",
+    "leaflet-routing-machine": "1.1.0",
+    "lodash": "3.2.0",
     "numeral": "1.5.3",
     "react": "0.13.0-beta.2"
   }

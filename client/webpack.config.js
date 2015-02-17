@@ -13,16 +13,21 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel'},
+      { test: /\.js$/, exclude: /(node_modules|common\/mq-)/, loader: 'babel'},
       { test: /\.css$/, loader: 'style!css'},
       { test: /\.less$/, loader: 'style!css!less'},
       { test: /\.(png|jpg|gif|svg|woff|woff2|ttf|eot)(\?.*)?$/, loader: 'file?name=[path][name].[ext]' },
+      { test: /mq-map/, loader: 'exports?MQ' },
+      { test: /mq-routing/, loader: 'imports?MQ=mq-map' },
     ],
   },
   resolve: {
     alias: {
+      'mq-map': 'common/mq-map',
+      'mq-routing': 'common/mq-routing',
       'react': 'react/addons',
     },
+    modulesDirectories: ['node_modules', 'src'],
   },
   plugins: [
     new Webpack.BannerPlugin(

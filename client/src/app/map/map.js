@@ -4,9 +4,8 @@ require('./map.less');
 
 var _ = require('lodash');
 var L = require('leaflet');
+var MQ = require('mq-map');
 var React = require('react');
-
-var MapRouting = require('./mapRouting');
 
 
 class Map extends React.Component {
@@ -14,12 +13,11 @@ class Map extends React.Component {
     this.initMap();
     this.initLayers();
     this.initRouting();
+    this.updateRouting();
   }
 
   componentDidUpdate(prevProps) {
-    if (!_.isEqual(this.routing.getWaypoints().map(x => x.latLng), this.props.waypoints.waypoints.map(x => x.latLng))) {
-      this.routing.setWaypoints(this.props.waypoints.waypoints.map(x => x.latLng));
-    }
+    this.updateRouting();
   }
 
   render() {
@@ -32,9 +30,15 @@ class Map extends React.Component {
     this.map = new L.Map(React.findDOMNode(this));
     this.map.setView(this.props.center, this.props.zoom);
 
-    this.map.on('moveend', () => { this.props.onChangeCenter(this.map.getCenter()); });
-    this.map.on('zoomend', () => { this.props.onChangeZoom(this.map.getZoom()); });
-    this.map.on('click', (e) => { this.props.onClick(e.latlng); });
+    this.map.on('moveend', () => {
+      this.props.onChangeCenter(this.map.getCenter());
+    });
+    this.map.on('zoomend', () => {
+      this.props.onChangeZoom(this.map.getZoom());
+    });
+    this.map.on('click', (e) => {
+      this.props.onClick(e.latlng);
+    });
   }
 
   initLayers() {
@@ -75,17 +79,52 @@ class Map extends React.Component {
   }
 
   initRouting() {
-    this.routing = new L.Routing.Control({
-      router: new MapRouting(),
-      waypoints: this.props.waypoints.waypoints.map(x => x.latLng),
+    this.routing = MQ.routing.directions();
+    this.routing.on('success', (data) => {
+      if (this.oldRoutingLayer) {
+        this.map.removeLayer(this.oldRoutingLayer);
+      }
+      this.props.onRoutingStop();//data.route);
+    });
+    this.routing.on('error', (e) => {
+      this.props.onRoutingStop();
+    });
+  }
+
+  updateRouting() {
+    var newRoutingWaypoints = this.props.waypoints.waypoints.map(x => _.pick(x, 'latLng')).filter(x => x.latLng);
+    for (var i = 1; i < newRoutingWaypoints.length - 1; i++) {
+      newRoutingWaypoints[i].type = 'v';
+    }
+
+    if (_.isEqual(this.routingWaypoints, newRoutingWaypoints)) {
+      return;
+    }
+    this.routingWaypoints = newRoutingWaypoints;
+    if (this.routingWaypoints < 2) {
+      return;
+    }
+
+    // run!
+
+    // RoutingLayer can't properly update rendered route, we need to create new layer
+    this.oldRoutingLayer = this.routingLayer;
+    this.routingLayer = MQ.routing.routeLayer({
+      directions: this.routing,
+      fitBounds: true,
+    });
+    this.map.addLayer(this.routingLayer);
+
+    this.routing.route({
+      locations: this.routingWaypoints,
+      options: {
+        unit: 'k',
+        routeType: 'pedestrian',
+        reverseGeocoding: false,
+      }
     });
 
-    this.routing.on('routingstart', () => { this.props.onRoutingStart(); });
-    this.routing.on('routesfound', (e) => { this.props.onRoutingStop(e.routes[0]); });
-    this.routing.on('routingerror', () => { this.props.onRoutingStop(); });
-    this.routing.getPlan().on('waypointschanged', (e) => { this.props.onChangeWaypoints(e.waypoints); });
-
-    this.map.addControl(this.routing);
+    this.props.onRoutingStart();
   }
 }
 

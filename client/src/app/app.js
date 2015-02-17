@@ -21,7 +21,7 @@ class App extends React.Component {
     this.state = {
       center: new L.LatLng(50.088134, 14.4416265),
       zoom: 4,
-      waypoints: new Waypoints(),
+      waypoints: Waypoints.fromString(location.hash.substring(1)),
       route: null,
       routeLoading: false,
     };
@@ -37,17 +37,12 @@ class App extends React.Component {
     this.moveDownWaypoint = this.moveDownWaypoint.bind(this);
     this.changeCenter = this.changeCenter.bind(this);
     this.changeZoom = this.changeZoom.bind(this);
-    this.changeWaypoints = this.changeWaypoints.bind(this);
     this.routingStart = this.routingStart.bind(this);
     this.routingStop = this.routingStop.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({ waypoints: Waypoints.fromString(location.hash) });
-  }
-
   render() {
-    location.hash = this.state.waypoints.toString();
+    location.hash = '#' + this.state.waypoints.toString();
 
     return (
       <div className="app">
@@ -77,7 +72,6 @@ class App extends React.Component {
             onChangeCenter={this.changeCenter}
             onChangeZoom={this.changeZoom}
             onClick={this.addWaypoint}
-            onChangeWaypoints={this.changeWaypoints}
             onRoutingStart={this.routingStart}
             onRoutingStop={this.routingStop}
           />
@@ -117,7 +111,7 @@ class App extends React.Component {
 
   changeWaypoint(waypointId, waypoint) {
     var i = _.findIndex(this.state.waypoints.waypoints, x => x.id === waypointId);
-    this.state.waypoints.waypoints[i].latLng = latLng;
+    this.state.waypoints.waypoints[i].latLng = waypoint.latLng;
     this.forceUpdate();
   }
 
@@ -147,17 +141,19 @@ class App extends React.Component {
     this.setState({ zoom: zoom });
   }
 
-  changeWaypoints(waypoints) {
-    var waypoints = new Waypoints(waypoints.map(x => new Waypoint(x.latLng)));
-    this.setState({ waypoints: waypoints });
-  }
-
   routingStart() {
-    this.setState({ route: null, routeLoading: true });
+    this.setState({ routeLoading: true });
   }
 
   routingStop(route) {
-    this.setState({ route: route, routeLoading: false });
+    this.setState({ routeLoading: false });
+
+    if (!(route && route.locations)) {
+      return;
+    }
+
+    var waypoints = new Waypoints(route.locations.map(x => new Waypoint(x.latLng)));
+    this.setState({ route: route, waypoints: waypoints });
   }
 }
 

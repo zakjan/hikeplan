@@ -19,7 +19,7 @@
     "compression": "1.4.1",
     "express": "4.10.8",
     "heroku-self-ping": "1.1.1",
-    "lodash": "2.4.1",
+    "lodash": "3.2.0",
     "morgan": "1.5.1",
     "request": "2.53.0",
     "serve-static": "1.7.2"
