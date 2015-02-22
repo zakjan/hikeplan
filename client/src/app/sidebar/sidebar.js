@@ -30,9 +30,9 @@ class Sidebar extends React.Component {
           </SidebarBox>
         </div>
         <div className="sidebar-foot">
-          Source code available on <a href="https://github.com/zakjan/hikeplan">GitHub</a>.
+          Source code available on <a href="https://github.com/zakjan/hikeplan" target="_blank">GitHub</a>.
           <br />
-          With passion for hiking, made by <a href="http://zakjan.cz">zakjan</a>.
+          With passion for hiking, made by <a href="http://zakjan.cz" target="_blank">zakjan</a>.
         </div>
       </div>
     );

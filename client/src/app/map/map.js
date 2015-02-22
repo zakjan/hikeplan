@@ -44,30 +44,29 @@ class Map extends React.Component {
   }
 
   initLayers() {
-    this.map.attributionControl.addAttribution('data &copy; <a target="_blank" href="http://openstreetmap.org">OpenStreetMap</a> contributors ' +
-      '(<a target="_blank" href="http://www.openstreetmap.org/copyright">ODbL</a>)');
+    this.map.attributionControl.addAttribution('data &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors');
 
     var thunderforestLandscapeLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      attribution: 'tiles &copy; <a target="_blank" href="http://www.thunderforest.com">Thunderforest</a> ' +
-        '(<a target="_blank" href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA 2.0</a>)'
+      attribution: 'tiles &copy; <a href="http://www.thunderforest.com" target="_blank">Thunderforest</a> ' +
+        '(<a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA 2.0</a>)'
     });
 
     var openStreetMapLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      attribution: 'tiles &copy; <a target="_blank" href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      attribution: 'tiles &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
     });
 
     var openCycleMapLayer = new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      attribution: 'tiles &copy; <a target="_blank" href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      attribution: 'tiles &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
     });
 
     var waymarkedTrailsLayer = new L.TileLayer('http://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
       maxZoom: 19,
       opacity: 0.5,
-      attribution: 'overlay &copy; <a target="_blank" href="http://hiking.waymarkedtrails.org">Waymarked Trails</a> ' +
-        '(<a target="_blank" href="http://creativecommons.org/licenses/by-sa/3.0/de/deed.en">CC-BY-SA 3.0 DE</a>)'
+      attribution: 'overlay &copy; <a href="http://hiking.waymarkedtrails.org" target="_blank">Waymarked Trails</a> ' +
+        '(<a href="http://creativecommons.org/licenses/by-sa/3.0/de/deed.en" target="_blank">CC-BY-SA 3.0 DE</a>)'
     });
 
     var layersControl = new L.Control.Layers({
@@ -109,7 +108,7 @@ class Map extends React.Component {
       fitBounds: true,
     });
     this.routingLayer.getAttribution = function() {
-      return 'routing &copy <a target="_blank" href="http://www.mapquest.com">MapQuest</a>';
+      return 'routing &copy <a href="http://www.mapquest.com" target="_blank">MapQuest</a>';
     };
     this.map.addLayer(this.routingLayer);
   }

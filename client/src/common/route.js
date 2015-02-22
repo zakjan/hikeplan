@@ -8,52 +8,76 @@ var config = require('config');
 
 
 class Route {
-  static _calculateElevationStats(elevationProfile) {
-    var elevations = _.pluck(elevationProfile, 'height');
-    var prevElevation = elevations[0];
-    var lowestElevation = _.min(elevations);
-    var highestElevation = _.max(elevations);
+  static _calculateStats(elevationProfile) {
+    var prevPoint = elevationProfile[0];
+    var distance = elevationProfile[elevationProfile.length - 1].distance;
+    var minElevation = prevPoint.height;
+    var maxElevation = prevPoint.height;
     var ascend = 0;
     var descend = 0;
+    var time = 0;
 
-    for (var i = 1; i < elevations.length; i++) {
-      var elevation = elevations[i];
-      var elevationDifference = elevation - prevElevation;
+    for (var i = 1; i < elevationProfile.length; i++) {
+      var point = elevationProfile[i];
+      var elevationDelta = point.height - prevPoint.height;
+      var distanceDelta = point.distance - prevPoint.distance;
 
-      if (elevationDifference > 0) {
-        ascend += elevationDifference;
-      } else if (elevationDifference < 0) {
-        descend -= elevationDifference;
+      if (point.height < minElevation) {
+        minElevation = point.height;
+      } else if (point.height > maxElevation) {
+        maxElevation = point.height;
       }
 
-      prevElevation = elevation;
+      if (elevationDelta > 0) {
+        ascend += elevationDelta;
+      } else if (elevationDelta < 0) {
+        descend -= elevationDelta;
+      }
+
+      /*
+      // doesn't work, because of inaccurate elevation data
+      var speed = Route._tobblerHikingFunction(elevationDelta, distanceDelta);
+      if (speed > 0) {
+        time += distanceDelta / speed;
+      }
+      */
+
+      prevPoint = point;
     }
 
-    return { lowestElevation, highestElevation, ascend, descend };
+    time = Route._calculateTime({ distance, ascend, descend });
+
+    return { distance, minElevation, maxElevation, ascend, descend, time };
   }
 
-  static _calculateTime({ distance, ascend, descend }) {
-    // @see http://www.horskasluzba.cz/data/web/download/casopis-horske-sluzby/casopis-hscr-2-leto2009.pdf
-    var DISTANCE_SPEED = 4; // km/h
-    var ASCEND_SPEED = 400; // m/h
-    var DESCEND_SPEED = 600; // m/h
+  // @see http://en.wikipedia.org/wiki/Tobler%27s_hiking_function
+  // @see http://geographianapocensis.acad-cluj.ro/Revista/volume/nr_2_2012/pdf/Magyari_Dombay.pdf
+  // @see https://github.com/SrNetoChan/WalkingTime/blob/e245616a7b209c6e4d9a83f1071d87e814fdc1b5/walkingtime.py#L193
+  static _tobblerHikingFunction(elevationDelta, distanceDelta) {
+    var baseSpeed = 5; // km/h
+    var maxSpeed = baseSpeed / Math.pow(Math.E, -3.5 * 0.05);
 
-    var distanceTime = distance / DISTANCE_SPEED;
-    var ascendTime = ascend / ASCEND_SPEED;
-    var descendTime = descend / DESCEND_SPEED;
+    if (distanceDelta === 0) {
+      return 0;
+    }
+
+    elevationDelta /= 1000;
+    return maxSpeed * Math.pow(Math.E, -3.5 * Math.abs(elevationDelta / distanceDelta + 0.05));
+  }
+
+  // @see http://www.horskasluzba.cz/data/web/download/casopis-horske-sluzby/casopis-hscr-2-leto2009.pdf
+  static _calculateTime({ distance, ascend, descend }) {
+    var distanceSpeed = 4; // km/h
+    var ascendSpeed = 400; // m/h
+    var descendSpeed = 600; // m/h
+
+    var distanceTime = distance / distanceSpeed;
+    var ascendTime = ascend / ascendSpeed;
+    var descendTime = descend / descendSpeed;
     var elevationTime = ascendTime + descendTime;
     var time = Math.max(distanceTime, elevationTime) + Math.min(distanceTime, elevationTime) / 2;
 
     return time;
-  }
-
-  static _calculateStats(elevationProfile) {
-    var { lowestElevation, highestElevation, ascend, descend } = Route._calculateElevationStats(elevationProfile);
-
-    var distance = _.last(elevationProfile).distance;
-    var time = Route._calculateTime({ distance, ascend, descend });
-
-    return { lowestElevation, highestElevation, ascend, descend, distance, time };
   }
 
   static getStats(routeSessionId) {
