@@ -30,6 +30,9 @@ module.exports = {
     modulesDirectories: ['node_modules', 'src'],
   },
   plugins: [
+    new Webpack.DefinePlugin({
+      'MAP_QUEST_API_KEY': JSON.stringify(process.env.MAP_QUEST_API_KEY),
+    }),
     new Webpack.BannerPlugin(
       'HikePlan (build ' + new Date().toISOString() + ')\n\n' +
       'Copyright (c) 2015 Jan Žák (http://zakjan.cz)\n' +
