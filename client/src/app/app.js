@@ -26,6 +26,7 @@ class App extends React.Component {
       routeLoading: false,
     };
 
+    this.onHashChange = this.onHashChange.bind(this);
     this.loadSampleWaypoints = this.loadSampleWaypoints.bind(this);
     this.clearWaypoints = this.clearWaypoints.bind(this);
     this.addEmptyWaypoint = this.addEmptyWaypoint.bind(this);
@@ -39,6 +40,14 @@ class App extends React.Component {
     this.changeZoom = this.changeZoom.bind(this);
     this.routingStart = this.routingStart.bind(this);
     this.routingStop = this.routingStop.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('hashchange', this.onHashChange);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('hashchange', this.onHashChange);
   }
 
   render() {
@@ -79,6 +88,10 @@ class App extends React.Component {
         </div>
       </div>
     );
+  }
+
+  onHashChange() {
+    this.setState({ waypoints: Waypoints.fromString(location.hash.substring(1)) });
   }
 
   loadSampleWaypoints() {
