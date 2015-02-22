@@ -25,7 +25,8 @@ class RouteStatsBox extends React.Component {
           <dt>Highest point:</dt><dd>{this.formatDistanceInMeters(this.props.route.stats.maxElevation)}</dd>
           <dt>Ascend:</dt><dd>{this.formatDistanceInMeters(this.props.route.stats.ascend)}</dd>
           <dt>Descend:</dt><dd>{this.formatDistanceInMeters(this.props.route.stats.descend)}</dd>
-          <dt>Time:</dt><dd>{this.formatTime(this.props.route.stats.time)}</dd>
+          <dt>Distance time:</dt><dd>{this.formatTime(this.props.route.stats.distanceTime)}</dd>
+          <dt>Total time:</dt><dd>{this.formatTime(this.props.route.stats.time)}</dd>
         </dl>
         <RouteElevationProfile elevationProfile={this.props.route.elevationProfile} />
       </div>

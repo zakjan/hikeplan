@@ -26,7 +26,7 @@ class RouteElevationProfile extends React.Component {
   getChartData() {
     var data = new google.visualization.DataTable();
     data.addColumn('number', 'Distance');
-    data.addColumn('number', 'Height');
+    data.addColumn('number', 'Elevation');
     data.addRows(this.props.elevationProfile.map(x => [x.distance, x.height]));
     return data;
   }

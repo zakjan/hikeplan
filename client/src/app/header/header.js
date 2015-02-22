@@ -15,10 +15,10 @@ class Header extends React.Component {
             <li className="dropdown">
               <a className="dropdown-toggle" data-toggle="dropdown">Samples <span className="caret"></span></a>
               <ul className="dropdown-menu">
-                <li><a onClick={this.props.onClickLoadSampleWaypoints.bind(this, 0)}>Fagaraš</a></li>
-                <li><a onClick={this.props.onClickLoadSampleWaypoints.bind(this, 1)}>Tatry</a></li>
-                <li><a onClick={this.props.onClickLoadSampleWaypoints.bind(this, 2)}>Krkonoše</a></li>
-                <li><a onClick={this.props.onClickLoadSampleWaypoints.bind(this, 3)}>Jizerky</a></li>
+                <li><a onClick={this.props.onClickLoadSampleWaypoints.bind(this, 0)}>Prčice</a></li>
+                <li><a onClick={this.props.onClickLoadSampleWaypoints.bind(this, 1)}>Sněžka</a></li>
+                <li><a onClick={this.props.onClickLoadSampleWaypoints.bind(this, 2)}>Rysy</a></li>
+                <li><a onClick={this.props.onClickLoadSampleWaypoints.bind(this, 3)}>Fagaraš</a></li>
               </ul>
             </li>
           </ul>

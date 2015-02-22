@@ -15,7 +15,6 @@ class Route {
     var maxElevation = prevPoint.height;
     var ascend = 0;
     var descend = 0;
-    var time = 0;
 
     for (var i = 1; i < elevationProfile.length; i++) {
       var point = elevationProfile[i];
@@ -45,9 +44,10 @@ class Route {
       prevPoint = point;
     }
 
-    time = Route._calculateTime({ distance, ascend, descend });
+    var distanceTime = distance / 4;
+    var time = Route._calculateTime({ distance, ascend, descend });
 
-    return { distance, minElevation, maxElevation, ascend, descend, time };
+    return { distance, minElevation, maxElevation, ascend, descend, distanceTime, time };
   }
 
   // @see http://en.wikipedia.org/wiki/Tobler%27s_hiking_function
