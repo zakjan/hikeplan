@@ -52,12 +52,18 @@ class Map extends React.Component {
         '(<a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA 2.0</a>)'
     });
 
-    var openStreetMapLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    var thunderforestOutdoorsLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: 'tiles &copy; <a href="http://www.thunderforest.com" target="_blank">Thunderforest</a> ' +
+        '(<a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA 2.0</a>)'
+    });
+
+    var openCycleMapLayer = new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: 'tiles &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
     });
 
-    var openCycleMapLayer = new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+    var openStreetMapLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: 'tiles &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
     });
@@ -71,8 +77,9 @@ class Map extends React.Component {
 
     var layersControl = new L.Control.Layers({
       'Thunderforest Landscape': thunderforestLandscapeLayer,
-      'OpenStreetMap': openStreetMapLayer,
+      'Thunderforest Outdoors': thunderforestOutdoorsLayer,
       'OpenCycleMap': openCycleMapLayer,
+      'OpenStreetMap': openStreetMapLayer,
     }, {
       'Waymarked Trails': waymarkedTrailsLayer,
     });
