@@ -44,8 +44,8 @@ class Map extends React.Component {
   }
 
   initLayers() {
-    this.map.attributionControl.addAttribution('data &copy; <a target="_blank" href="http://openstreetmap.org">OpenStreetMap</a> ' +
-      '(<a target="_blank" href="http://opendatacommons.org/licenses/odbl/">ODbL</a>)');
+    this.map.attributionControl.addAttribution('data &copy; <a target="_blank" href="http://openstreetmap.org">OpenStreetMap</a> contributors ' +
+      '(<a target="_blank" href="http://www.openstreetmap.org/copyright">ODbL</a>)');
 
     var thunderforestLandscapeLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
       maxZoom: 18,
