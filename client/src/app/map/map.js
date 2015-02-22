@@ -44,6 +44,9 @@ class Map extends React.Component {
   }
 
   initLayers() {
+    this.map.attributionControl.addAttribution('data &copy; <a target="_blank" href="http://openstreetmap.org">OpenStreetMap</a> ' +
+      '(<a target="_blank" href="http://opendatacommons.org/licenses/odbl/">ODbL</a>)');
+
     var thunderforestLandscapeLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: 'tiles &copy; <a target="_blank" href="http://www.thunderforest.com">Thunderforest</a> ' +
@@ -67,7 +70,7 @@ class Map extends React.Component {
         '(<a target="_blank" href="http://creativecommons.org/licenses/by-sa/3.0/de/deed.en">CC-BY-SA 3.0 DE</a>)'
     });
 
-    var layerControl = new L.Control.Layers({
+    var layersControl = new L.Control.Layers({
       'Thunderforest Landscape': thunderforestLandscapeLayer,
       'OpenStreetMap': openStreetMapLayer,
       'OpenCycleMap': openCycleMapLayer,
@@ -77,7 +80,7 @@ class Map extends React.Component {
 
     this.map.addLayer(thunderforestLandscapeLayer);
     this.map.addLayer(waymarkedTrailsLayer);
-    this.map.addControl(layerControl);
+    this.map.addControl(layersControl);
   }
 
   initRouting() {
@@ -105,6 +108,9 @@ class Map extends React.Component {
       directions: this.routing,
       fitBounds: true,
     });
+    this.routingLayer.getAttribution = function() {
+      return 'routing &copy <a target="_blank" href="http://www.mapquest.com">MapQuest</a>';
+    };
     this.map.addLayer(this.routingLayer);
   }
 

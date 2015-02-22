@@ -1,4 +1,4 @@
-MQKEY=Key='Fmjtd|luu821ut2l,8a=o5-94bx06';
+//MQKEY=Key='[YOUR_KEY_HERE]';
 MQCONFIGNUMBER=4;
 if(window.MQPROTOCOL===undefined){ MQPROTOCOL=window.location.protocol==='https:'?'https://':'http://'; }
 MQPLATFORMSERVER=MQPROTOCOL+"open.mapquestapi.com";
