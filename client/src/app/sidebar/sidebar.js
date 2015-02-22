@@ -19,6 +19,7 @@ class Sidebar extends React.Component {
               waypoints={this.props.waypoints}
               onAddEmptyWaypoint={this.props.onAddEmptyWaypoint}
               onReverseWaypoints={this.props.onReverseWaypoints}
+              onClearWaypoints={this.props.onClearWaypoints}
               onChangeWaypoint={this.props.onChangeWaypoint}
               onRemoveWaypoint={this.props.onRemoveWaypoint}
               onMoveUpWaypoint={this.props.onMoveUpWaypoint}

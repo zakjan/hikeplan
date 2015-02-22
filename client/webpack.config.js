@@ -17,12 +17,14 @@ module.exports = {
       { test: /\.css$/, loader: 'style!css'},
       { test: /\.less$/, loader: 'style!css!less'},
       { test: /\.(png|jpg|gif|svg|woff|woff2|ttf|eot)(\?.*)?$/, loader: 'file?name=[path][name].[ext]' },
-      { test: /mq-map/, loader: 'imports?config,MQKEY=>config.mapQuestApiKey!exports?MQ' },
-      { test: /mq-routing/, loader: 'imports?config,MQKEY=>config.mapQuestApiKey,MQ=mq-map' },
+      { test: /bootstrap\.js/, loader: 'imports?jQuery=jquery' },
+      { test: /common\/mq-map/, loader: 'imports?config,MQKEY=>config.mapQuestApiKey!exports?MQ' },
+      { test: /common\/mq-routing/, loader: 'imports?config,MQKEY=>config.mapQuestApiKey,MQ=mq-map' },
     ],
   },
   resolve: {
     alias: {
+      'bootstrap.js': 'bootstrap/dist/js/bootstrap\.js',
       'mq-map': 'common/mq-map',
       'mq-routing': 'common/mq-routing',
       'react': 'react/addons',

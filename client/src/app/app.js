@@ -57,7 +57,6 @@ class App extends React.Component {
       <div className="app">
         <Header
           onClickLoadSampleWaypoints={this.loadSampleWaypoints}
-          onClickClearWaypoints={this.clearWaypoints}
         />
 
         <div className="main">
@@ -65,6 +64,7 @@ class App extends React.Component {
             waypoints={this.state.waypoints}
             onAddEmptyWaypoint={this.addEmptyWaypoint}
             onReverseWaypoints={this.reverseWaypoints}
+            onClearWaypoints={this.clearWaypoints}
             onChangeWaypoint={this.changeWaypoint}
             onRemoveWaypoint={this.removeWaypoint}
             onMoveUpWaypoint={this.moveUpWaypoint}
@@ -94,9 +94,15 @@ class App extends React.Component {
     this.setState({ waypoints: Waypoints.fromString(location.hash.substring(1)) });
   }
 
-  loadSampleWaypoints() {
-    // Fagaras
-    var route = '45.64864,24.35675;45.59963,24.40401;45.59915,24.6062;45.60443,24.61899;45.59692,24.67778;45.59944,24.73611;45.63826,24.73899;45.65476,24.73881;45.69558,24.73958';
+  loadSampleWaypoints(i) {
+    var routes = [
+      '45.64864,24.35675;45.59963,24.40401;45.59915,24.6062;45.60443,24.61899;45.59692,24.67778;45.59944,24.73611;45.63826,24.73899;45.65476,24.73881;45.69558,24.73958', // Fagaraš
+      '49.264,20.11322;49.14716,20.06906;49.11857,20.06239', // Tatry
+      '50.77005,15.43461;50.77577,15.53561;50.76773,15.58466;50.75997,15.6829;50.73493,15.6968;50.73598,15.74017;50.71706,15.7235;50.69554,15.73899', // Krkonoše
+      '50.87298,15.22039;50.8508,15.24441', // Jizerky
+    ];
+    var route = routes[i];
+
     this.setState({ waypoints: Waypoints.fromString(route) });
   }
 

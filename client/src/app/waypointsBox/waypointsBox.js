@@ -24,9 +24,11 @@ class WaypointsBox extends React.Component {
           }
         </div>
         <div className="form-group">
-          <a className="btn btn-default btn-xs" onClick={this.props.onAddEmptyWaypoint}><i className="fa fa-plus fa-fw"></i>&nbsp;Add waypoint</a>
+          <a className="btn btn-default btn-xs" onClick={this.props.onAddEmptyWaypoint}><i className="fa fa-plus fa-fw"></i>&nbsp;Add</a>
           &nbsp;
-          <a className="btn btn-default btn-xs" onClick={this.props.onReverseWaypoints}><i className="fa fa-exchange fa-rotate-90 fa-fw"></i>&nbsp;Reverse direction</a>
+          <a className="btn btn-default btn-xs" onClick={this.props.onReverseWaypoints}><i className="fa fa-exchange fa-rotate-90 fa-fw"></i>&nbsp;Reverse</a>
+          &nbsp;
+          <a className="btn btn-default btn-xs" onClick={this.props.onClearWaypoints}><i className="fa fa-times fa-fw"></i>&nbsp;Clear</a>
         </div>
       </form>
     );
