@@ -7,8 +7,6 @@ var herokuSelfPing = require('heroku-self-ping');
 var morgan = require('morgan');
 var serveStatic = require('serve-static');
 
-var routing = require('./routing');
-
 
 var setupMiddlewares = function(app) {
   app.use(morgan('dev'));
@@ -16,7 +14,6 @@ var setupMiddlewares = function(app) {
 };
 
 var setupRoutes = function(app) {
-  app.get('/routing', routing.getRouting);
   app.use('/', serveStatic(__dirname + '/../client/dist'));
 };
 

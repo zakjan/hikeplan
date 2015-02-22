@@ -6,7 +6,7 @@ var _ = require('lodash');
 var L = require('leaflet');
 var React = require('react');
 
-var Waypoint = require('../../common/waypoint');
+var Waypoint = require('common/waypoint');
 
 
 class WaypointBox extends React.Component {

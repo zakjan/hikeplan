@@ -41,8 +41,8 @@ class Waypoint {
 
   // truncate insignificant digits
   static truncLatLng(latLng) {
-    latLng.lat = parseFloat(latLng.lat.toFixed(6));
-    latLng.lng = parseFloat(latLng.lng.toFixed(6));
+    latLng.lat = parseFloat(latLng.lat.toFixed(5));
+    latLng.lng = parseFloat(latLng.lng.toFixed(5));
     return latLng;
   }
 }

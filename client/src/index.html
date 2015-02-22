@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <title>{%= o.htmlWebpackPlugin.options.title %}</title>
+
+  <script src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart']}]}"></script>
+
+  {% for (var chunk in o.htmlWebpackPlugin.assets) { %}
+  <script src="{%= o.htmlWebpackPlugin.assets[chunk] %}"></script>
+  {% } %}
+
+</head>
+<body>
+</body>
+</html>

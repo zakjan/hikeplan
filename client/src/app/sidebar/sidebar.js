@@ -4,9 +4,9 @@ require('./sidebar.less');
 
 var React = require('react');
 
-var RouteStatsBox = require('../routeStatsBox/routeStatsBox');
-var SidebarBox = require('../sidebarBox/sidebarBox');
-var WaypointsBox = require('../waypointsBox/waypointsBox');
+var RouteStatsBox = require('app/routeStatsBox/routeStatsBox');
+var SidebarBox = require('app/sidebarBox/sidebarBox');
+var WaypointsBox = require('app/waypointsBox/waypointsBox');
 
 
 class Sidebar extends React.Component {

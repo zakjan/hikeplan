@@ -2,7 +2,7 @@
 
 var React = require('react');
 
-var WaypointBox = require('./waypointBox');
+var WaypointBox = require('app/waypointsBox/waypointBox');
 
 
 class WaypointsBox extends React.Component {

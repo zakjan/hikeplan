@@ -2,7 +2,7 @@
   "name": "hikeplan",
   "version": "0.0.0",
   "description": "Hiking route planner",
-  "author": "Jan Zak (http://zakjan.cz)",
+  "author": "Jan Žák (http://zakjan.cz)",
   "private": true,
   "scripts": {
     "dist": "babel src --out-dir dist",

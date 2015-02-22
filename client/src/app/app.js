@@ -6,12 +6,12 @@ var _ = require('lodash');
 var L = require('leaflet');
 var React = require('react');
 
-var Header = require('./header/header');
-var Map = require('./map/map');
-var Sidebar = require('./sidebar/sidebar');
-
-var Waypoint = require('../common/waypoint');
-var Waypoints = require('../common/waypoints');
+var Header = require('app/header/header');
+var Map = require('app/map/map');
+var QueryString = require('common/queryString');
+var Sidebar = require('app/sidebar/sidebar');
+var Waypoint = require('common/waypoint');
+var Waypoints = require('common/waypoints');
 
 
 class App extends React.Component {
@@ -69,6 +69,7 @@ class App extends React.Component {
             center={this.state.center}
             zoom={this.state.zoom}
             waypoints={this.state.waypoints}
+            route={this.state.route}
             onChangeCenter={this.changeCenter}
             onChangeZoom={this.changeZoom}
             onClick={this.addWaypoint}
@@ -81,12 +82,13 @@ class App extends React.Component {
   }
 
   loadSampleWaypoints() {
-    var route = '45.648638,24.356754;45.599146,24.606199;45.60443,24.618988;45.596924,24.677782;45.599444,24.736111;45.695449,24.739665'; // Fagaras
+    // Fagaras
+    var route = '45.64864,24.35675;45.59963,24.40401;45.59915,24.6062;45.60443,24.61899;45.59692,24.67778;45.59944,24.73611;45.63826,24.73899;45.65476,24.73881;45.69558,24.73958';
     this.setState({ waypoints: Waypoints.fromString(route) });
   }
 
   clearWaypoints() {
-    this.setState({ waypoints: new Waypoints() });
+    this.setState({ route: null, waypoints: new Waypoints() });
   }
 
   addEmptyWaypoint() {
@@ -146,14 +148,16 @@ class App extends React.Component {
   }
 
   routingStop(route) {
-    this.setState({ routeLoading: false });
-
-    if (!(route && route.locations)) {
+    if (!route) {
+      if (this.state.routeLoading) {
+        this.setState({ routeLoading: false });
+      }
       return;
     }
 
     var waypoints = new Waypoints(route.locations.map(x => new Waypoint(x.latLng)));
-    this.setState({ route: route, waypoints: waypoints });
+
+    this.setState({ waypoints: waypoints, route: route, routeLoading: false });
   }
 }
 

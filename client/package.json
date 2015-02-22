@@ -2,7 +2,7 @@
   "name": "hikeplan-client",
   "version": "0.0.0",
   "description": "Hiking route planner",
-  "author": "Jan Zak (http://zakjan.cz)",
+  "author": "Jan Žák (http://zakjan.cz)",
   "private": true,
   "scripts": {
     "dist": "webpack"
@@ -21,7 +21,6 @@
     "imports-loader": "0.6.3",
     "less": "2.4.0",
     "less-loader": "2.0.0",
-    "run-sequence": "1.0.2",
     "style-loader": "0.8.3",
     "webpack": "1.5.3"
   },

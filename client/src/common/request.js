@@ -15,7 +15,7 @@ class ResponseError extends Error {
   }
 }
 
-var request = function (reqData) {
+var NewRequest = function (reqData) {
   return Request(reqData).spread(function(res, body) {
     var isError = Math.trunc(res.statusCode / 100) != 2;
 
@@ -28,4 +28,4 @@ var request = function (reqData) {
 }
 
 
-module.exports = request;
+module.exports = NewRequest;

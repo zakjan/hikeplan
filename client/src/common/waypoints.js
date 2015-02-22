@@ -4,7 +4,7 @@ var Waypoint = require('./waypoint');
 class Waypoints {
   constructor(waypoints) {
     if (!waypoints || waypoints.length === 0) {
-      this.waypoints = waypoints || [];
+      this.waypoints = [new Waypoint(), new Waypoint()];
     } else if (waypoints.length === 1) {
       this.waypoints = [waypoints[0], new Waypoint()];
     } else {

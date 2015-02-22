@@ -5,36 +5,43 @@ require('./routeStatsBox.less');
 var Numeral = require('numeral');
 var React = require('react');
 
+var RouteElevationProfile = require('app/routeElevationProfile/routeElevationProfile');
+var Route = require('common/route');
+
 
 class RouteStatsBox extends React.Component {
   render() {
     if (!this.props.route) {
-      return <p>No route<br /><br /><br /><br /><br /><br /></p>;
+      return (
+        <p>No route</p>
+      );
     }
 
     return (
       <div className="route-stats-box">
         <dl className="dl-horizontal">
-          <dt>Distance:</dt><dd>{this.formatDistanceInKilometers(this.props.route.distance)}</dd>
-          <dt>Ascend:</dt><dd>{this.formatDistanceInMeters(this.props.route.ascend)}</dd>
-          <dt>Descend:</dt><dd>{this.formatDistanceInMeters(this.props.route.descend)}</dd>
-          <dt>Time:</dt><dd>{this.formatTime(this.props.route.time)}</dd>
+          <dt>Distance:</dt><dd>{this.formatDistanceInKilometers(this.props.route.stats.distance)}</dd>
+          <dt>Lowest point:</dt><dd>{this.formatDistanceInMeters(this.props.route.stats.lowestElevation)}</dd>
+          <dt>Highest point:</dt><dd>{this.formatDistanceInMeters(this.props.route.stats.highestElevation)}</dd>
+          <dt>Ascend:</dt><dd>{this.formatDistanceInMeters(this.props.route.stats.ascend)}</dd>
+          <dt>Descend:</dt><dd>{this.formatDistanceInMeters(this.props.route.stats.descend)}</dd>
+          <dt>Time:</dt><dd>{this.formatTime(this.props.route.stats.time)}</dd>
         </dl>
-        <p>Altitude chart</p>
+        <RouteElevationProfile elevationProfile={this.props.route.elevationProfile} />
       </div>
     );
   }
 
-  formatDistanceInKilometers(value) {
+  formatDistanceInKilometers(value = 0) {
     return Numeral(value).format('0.0') + ' km';
   }
 
-  formatDistanceInMeters(value) {
+  formatDistanceInMeters(value = 0) {
     return Numeral(value).format('0,0') + ' m';
   }
 
-  formatTime(value) {
-    return Numeral(value).format('0:00');
+  formatTime(value = 0) {
+    return Numeral(value * 60 * 60).format('00:00:00').replace(/^0?(\d+):0?(\d+):0?(\d+)$/, '$1 h $2 m');
   }
 }
 

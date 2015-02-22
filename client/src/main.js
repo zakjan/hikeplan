@@ -19,7 +19,6 @@ var L = require('leaflet');
 L.Icon.Default.imagePath = '_/node_modules/leaflet/dist/images';
 
 // init MapQuest
-var MAP_QUEST_API_KEY = 'Fmjtd|luu821ut2l,8a=o5-94bx06';
 require('mq-map');
 require('mq-routing');
 

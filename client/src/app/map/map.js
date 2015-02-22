@@ -7,17 +7,19 @@ var L = require('leaflet');
 var MQ = require('mq-map');
 var React = require('react');
 
+var Route = require('common/route');
+
 
 class Map extends React.Component {
   componentDidMount() {
     this.initMap();
     this.initLayers();
     this.initRouting();
-    this.updateRouting();
+    this.updateWaypoints();
   }
 
-  componentDidUpdate(prevProps) {
-    this.updateRouting();
+  componentDidUpdate() {
+    this.updateWaypoints();
   }
 
   render() {
@@ -65,7 +67,7 @@ class Map extends React.Component {
         '(<a target="_blank" href="http://creativecommons.org/licenses/by-sa/3.0/de/deed.en">CC-BY-SA 3.0 DE</a>)'
     });
 
-    var layers = new L.Control.Layers({
+    var layerControl = new L.Control.Layers({
       'Thunderforest Landscape': thunderforestLandscapeLayer,
       'OpenStreetMap': openStreetMapLayer,
       'OpenCycleMap': openCycleMapLayer,
@@ -75,48 +77,62 @@ class Map extends React.Component {
 
     this.map.addLayer(thunderforestLandscapeLayer);
     this.map.addLayer(waymarkedTrailsLayer);
-    this.map.addControl(layers);
+    this.map.addControl(layerControl);
   }
 
   initRouting() {
     this.routing = MQ.routing.directions();
     this.routing.on('success', (data) => {
-      if (this.oldRoutingLayer) {
-        this.map.removeLayer(this.oldRoutingLayer);
+      var route = data.route;
+
+      if (!route.sessionId) {
+        return;
       }
-      this.props.onRoutingStop();//data.route);
+
+      Route.getStats(route.sessionId).then((data) => {
+        route.elevationProfile = data.elevationProfile;
+        route.stats = data.stats;
+
+        this.props.onRoutingStop(route);
+      });
     });
     this.routing.on('error', (e) => {
+      console.error(e);
       this.props.onRoutingStop();
     });
-  }
 
-  updateRouting() {
-    var newRoutingWaypoints = this.props.waypoints.waypoints.map(x => _.pick(x, 'latLng')).filter(x => x.latLng);
-    for (var i = 1; i < newRoutingWaypoints.length - 1; i++) {
-      newRoutingWaypoints[i].type = 'v';
-    }
-
-    if (_.isEqual(this.routingWaypoints, newRoutingWaypoints)) {
-      return;
-    }
-    this.routingWaypoints = newRoutingWaypoints;
-    if (this.routingWaypoints < 2) {
-      return;
-    }
-
-    // run!
-
-    // RoutingLayer can't properly update rendered route, we need to create new layer
-    this.oldRoutingLayer = this.routingLayer;
     this.routingLayer = MQ.routing.routeLayer({
       directions: this.routing,
       fitBounds: true,
     });
     this.map.addLayer(this.routingLayer);
+  }
 
+  updateWaypoints() {
+    var newWaypoints = this.props.waypoints.waypoints.filter(x => x.latLng).map(x => _.pick(x , 'latLng')); // filter empty waypoints
+
+    // check if waypoints have been updated
+    if (_.isEqual(this.waypoints, newWaypoints)) {
+      return;
+    }
+
+    // clear previous route
+    this.routingLayer.setRouteData();
+    this.waypoints = newWaypoints;
+
+    // check if there are at least two waypoints
+    if (newWaypoints.length < 2) {
+      return;
+    }
+
+    var routingWaypoints = _.cloneDeep(newWaypoints);
+    for (var i = 1; i < routingWaypoints.length - 1; i++) {
+      routingWaypoints[i].type = 'v';
+    }
+
+    // run!
     this.routing.route({
-      locations: this.routingWaypoints,
+      locations: routingWaypoints,
       options: {
         unit: 'k',
         routeType: 'pedestrian',

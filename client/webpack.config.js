@@ -31,11 +31,12 @@ module.exports = {
   },
   plugins: [
     new Webpack.BannerPlugin(
-      'HikePlan: build ' + new Date().toISOString() + '\n\n' +
-      'Copyright (c) 2015 Jan Zak (http://zakjan.cz)\n' +
+      'HikePlan (build ' + new Date().toISOString() + ')\n\n' +
+      'Copyright (c) 2015 Jan Žák (http://zakjan.cz)\n' +
       'The MIT License (MIT).'
     ),
     new HtmlWebpackPlugin({
+      template: 'src/index.html',
       title: 'HikePlan',
     }),
   ],
