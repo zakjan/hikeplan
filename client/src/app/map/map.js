@@ -29,7 +29,7 @@ class Map extends React.Component {
   }
 
   initMap() {
-    this.map = new L.Map(React.findDOMNode(this));
+    this.map = new L.Map(React.findDOMNode(this), { zoomControl: false, attributionControl: false });
     this.map.setView(this.props.center, this.props.zoom);
 
     this.map.on('moveend', () => {
@@ -44,7 +44,11 @@ class Map extends React.Component {
   }
 
   initLayers() {
-    this.map.attributionControl.addAttribution('data &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors');
+    var zoomControl = new L.Control.Zoom({ zoomOutText: '&minus;' });
+    var scaleControl = new L.Control.Scale({ imperial: false });
+    var attributionControl = new L.Control.Attribution();
+
+    attributionControl.addAttribution('data &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors');
 
     var thunderforestLandscapeLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -84,9 +88,12 @@ class Map extends React.Component {
       'Waymarked Trails': waymarkedTrailsLayer,
     });
 
+    this.map.addControl(zoomControl);
+    this.map.addControl(scaleControl);
+    this.map.addControl(attributionControl);
+    this.map.addControl(layersControl);
     this.map.addLayer(thunderforestLandscapeLayer);
     this.map.addLayer(waymarkedTrailsLayer);
-    this.map.addControl(layersControl);
   }
 
   initRouting() {
