@@ -52,14 +52,12 @@ class Map extends React.Component {
 
     var thunderforestLandscapeLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      attribution: 'tiles &copy; <a href="http://www.thunderforest.com" target="_blank">Thunderforest</a> ' +
-        '(<a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA 2.0</a>)'
+      attribution: 'tiles &copy; <a href="http://www.thunderforest.com" target="_blank">Thunderforest</a>'
     });
 
     var thunderforestOutdoorsLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      attribution: 'tiles &copy; <a href="http://www.thunderforest.com" target="_blank">Thunderforest</a> ' +
-        '(<a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA 2.0</a>)'
+      attribution: 'tiles &copy; <a href="http://www.thunderforest.com" target="_blank">Thunderforest</a>'
     });
 
     var openCycleMapLayer = new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
@@ -75,8 +73,7 @@ class Map extends React.Component {
     var waymarkedTrailsLayer = new L.TileLayer('http://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
       maxZoom: 19,
       opacity: 0.5,
-      attribution: 'overlay &copy; <a href="http://hiking.waymarkedtrails.org" target="_blank">Waymarked Trails</a> ' +
-        '(<a href="http://creativecommons.org/licenses/by-sa/3.0/de/deed.en" target="_blank">CC-BY-SA 3.0 DE</a>)'
+      attribution: 'overlay &copy; <a href="http://hiking.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
     });
 
     var layersControl = new L.Control.Layers({
