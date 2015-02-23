@@ -98,9 +98,11 @@ class Map extends React.Component {
     this.routing.on('success', (data) => {
       var route = data.route;
 
-      if (!route.sessionId) {
+      if (!(route.sessionId && route.locations)) {
         return;
       }
+
+      this.waypoints = route.locations.map(x => _.pick(x, 'latLng'));
 
       Route.getStats(route.sessionId).then((data) => {
         route.elevationProfile = data.elevationProfile;
@@ -152,7 +154,8 @@ class Map extends React.Component {
       options: {
         unit: 'k',
         routeType: 'pedestrian',
-        reverseGeocoding: false,
+        narrativeType: 'none',
+        doReverseGeocode: false,
       }
     });
 
