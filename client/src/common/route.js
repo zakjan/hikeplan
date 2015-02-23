@@ -13,8 +13,8 @@ class Route {
     var distance = elevationProfile[elevationProfile.length - 1].distance;
     var minElevation = prevPoint.height;
     var maxElevation = prevPoint.height;
-    var ascend = 0;
-    var descend = 0;
+    var ascent = 0;
+    var descent = 0;
 
     for (var i = 1; i < elevationProfile.length; i++) {
       var point = elevationProfile[i];
@@ -28,9 +28,9 @@ class Route {
       }
 
       if (elevationDelta > 0) {
-        ascend += elevationDelta;
+        ascent += elevationDelta;
       } else if (elevationDelta < 0) {
-        descend -= elevationDelta;
+        descent -= elevationDelta;
       }
 
       /*
@@ -45,9 +45,9 @@ class Route {
     }
 
     var distanceTime = distance / 4;
-    var time = Route._calculateTime({ distance, ascend, descend });
+    var time = Route._calculateTime({ distance, ascent, descent });
 
-    return { distance, minElevation, maxElevation, ascend, descend, distanceTime, time };
+    return { distance, minElevation, maxElevation, ascent, descent, distanceTime, time };
   }
 
   // @see http://en.wikipedia.org/wiki/Tobler%27s_hiking_function
@@ -66,15 +66,15 @@ class Route {
   }
 
   // @see http://www.horskasluzba.cz/data/web/download/casopis-horske-sluzby/casopis-hscr-2-leto2009.pdf
-  static _calculateTime({ distance, ascend, descend }) {
+  static _calculateTime({ distance, ascent, descent }) {
     var distanceSpeed = 4; // km/h
-    var ascendSpeed = 400; // m/h
-    var descendSpeed = 600; // m/h
+    var ascentSpeed = 400; // m/h
+    var descentSpeed = 600; // m/h
 
     var distanceTime = distance / distanceSpeed;
-    var ascendTime = ascend / ascendSpeed;
-    var descendTime = descend / descendSpeed;
-    var elevationTime = ascendTime + descendTime;
+    var ascentTime = ascent / ascentSpeed;
+    var descentTime = descent / descentSpeed;
+    var elevationTime = ascentTime + descentTime;
     var time = Math.max(distanceTime, elevationTime) + Math.min(distanceTime, elevationTime) / 2;
 
     return time;
