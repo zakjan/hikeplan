@@ -46,13 +46,13 @@ class Map extends React.Component {
   initLayers() {
     this.map.attributionControl.addAttribution('data &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors');
 
-    var thunderforestOutdoorsLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', {
+    var thunderforestLandscapeLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: 'tiles &copy; <a href="http://www.thunderforest.com" target="_blank">Thunderforest</a> ' +
         '(<a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA 2.0</a>)'
     });
 
-    var thunderforestLandscapeLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
+    var thunderforestOutdoorsLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: 'tiles &copy; <a href="http://www.thunderforest.com" target="_blank">Thunderforest</a> ' +
         '(<a href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">CC-BY-SA 2.0</a>)'
@@ -76,15 +76,15 @@ class Map extends React.Component {
     });
 
     var layersControl = new L.Control.Layers({
-      'Thunderforest Outdoors': thunderforestOutdoorsLayer,
       'Thunderforest Landscape': thunderforestLandscapeLayer,
+      'Thunderforest Outdoors': thunderforestOutdoorsLayer,
       'OpenCycleMap': openCycleMapLayer,
       'OpenStreetMap': openStreetMapLayer,
     }, {
       'Waymarked Trails': waymarkedTrailsLayer,
     });
 
-    this.map.addLayer(thunderforestOutdoorsLayer);
+    this.map.addLayer(thunderforestLandscapeLayer);
     this.map.addLayer(waymarkedTrailsLayer);
     this.map.addControl(layersControl);
   }
