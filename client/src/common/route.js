@@ -84,7 +84,7 @@ class Route {
     var reqOptions = {
       url: 'http://open.mapquestapi.com/elevation/v1/profile',
       qs: {
-        key: config.mapQuestApiKey,
+        key: config.mapQuestAccessToken,
         sessionId: routeSessionId,
         useFilter: true, // smooth line, fixes missing data
         outShapeFormat: 'none',

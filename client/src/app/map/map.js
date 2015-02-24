@@ -7,6 +7,7 @@ var L = require('leaflet');
 var MQ = require('mq-map');
 var React = require('react');
 
+var config = require('config');
 var Route = require('common/route');
 
 
@@ -60,6 +61,14 @@ class Map extends React.Component {
       attribution: 'tiles &copy; <a href="http://www.thunderforest.com" target="_blank">Thunderforest</a>'
     });
 
+    var mapboxRunBikeHikeLayer = new L.TileLayer('https://{s}.tiles.mapbox.com/v4/zakjan.la34ba7d/{z}/{x}/{y}.png?access_token=' + config.mapboxAccessToken, {
+      attribution: 'tiles &copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>'
+    });
+
+    var mapboxOutdoorsLayer = new L.TileLayer('https://{s}.tiles.mapbox.com/v4/zakjan.la543gn5/{z}/{x}/{y}.png?access_token=' + config.mapboxAccessToken, {
+      attribution: 'tiles &copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>'
+    });
+
     var openCycleMapLayer = new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: 'tiles &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
@@ -79,6 +88,8 @@ class Map extends React.Component {
     var layersControl = new L.Control.Layers({
       'Thunderforest Landscape': thunderforestLandscapeLayer,
       'Thunderforest Outdoors': thunderforestOutdoorsLayer,
+      'Mapbox Run, Bike and Hike': mapboxRunBikeHikeLayer,
+      'Mapbox Outdoors': mapboxOutdoorsLayer,
       'OpenCycleMap': openCycleMapLayer,
       'OpenStreetMap': openStreetMapLayer,
     }, {
