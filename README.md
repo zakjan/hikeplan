@@ -14,14 +14,14 @@ cd client && npm install
 ## Development
 
 ```
-npm run dist && npm start
+npm start
 cd client && npm run dist -- -w   # watch
 ```
 
 ## Production
 
 ```
-npm run dist && npm start
+npm start
 cd client && npm run dist -- -p   # production
 ```
 

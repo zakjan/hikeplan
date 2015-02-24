@@ -5,23 +5,17 @@
   "author": "Jan Žák (http://zakjan.cz)",
   "private": true,
   "scripts": {
-    "dist": "babel src --out-dir dist",
-    "start": "node dist/main.js"
+    "start": "node src/main.js"
   },
   "engines": {
     "node": "0.10.x"
   },
-  "devDependencies": {
-    "babel": "4.0.2"
-  },
   "dependencies": {
-    "bluebird": "2.9.9",
     "compression": "1.4.1",
     "express": "4.10.8",
     "heroku-self-ping": "1.1.1",
     "lodash": "3.2.0",
     "morgan": "1.5.1",
-    "request": "2.53.0",
     "serve-static": "1.7.2"
   }
 }

@@ -8,7 +8,6 @@ dependencies:
 
 test:
   override:
-    - npm run dist
     - cd client && npm run dist -- -p
   post:
     - sed -i -e '/dist/d' .gitignore
