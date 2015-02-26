@@ -26,20 +26,7 @@ class App extends React.Component {
       routeLoading: false,
     };
 
-    this.onHashChange = this.onHashChange.bind(this);
-    this.loadSampleWaypoints = this.loadSampleWaypoints.bind(this);
-    this.clearWaypoints = this.clearWaypoints.bind(this);
-    this.addEmptyWaypoint = this.addEmptyWaypoint.bind(this);
-    this.addWaypoint = this.addWaypoint.bind(this);
-    this.reverseWaypoints = this.reverseWaypoints.bind(this);
-    this.changeWaypoint = this.changeWaypoint.bind(this);
-    this.removeWaypoint = this.removeWaypoint.bind(this);
-    this.moveUpWaypoint = this.moveUpWaypoint.bind(this);
-    this.moveDownWaypoint = this.moveDownWaypoint.bind(this);
-    this.changeCenter = this.changeCenter.bind(this);
-    this.changeZoom = this.changeZoom.bind(this);
-    this.routingStart = this.routingStart.bind(this);
-    this.routingStop = this.routingStop.bind(this);
+    _.bindAll(this, ['onHashChange', 'loadSampleWaypoints', 'clearWaypoints', 'addEmptyWaypoint', 'addWaypoint', 'reverseWaypoints', 'changeWaypoint', 'removeWaypoint', 'moveUpWaypoint', 'moveDownWaypoint', 'changeCenter', 'changeZoom', 'routingStart', 'routingStop']);
   }
 
   componentDidMount() {

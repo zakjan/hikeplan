@@ -19,8 +19,7 @@ class WaypointBox extends React.Component {
       valid: true,
     };
 
-    this.changeValue = this.changeValue.bind(this);
-    this.changeWaypoint = this.changeWaypoint.bind(this);
+    _.bindAll(this, ['changeValue', 'changeWaypoint']);
   }
 
   componentWillReceiveProps(nextProps) {
