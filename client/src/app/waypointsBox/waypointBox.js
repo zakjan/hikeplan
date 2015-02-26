@@ -3,6 +3,7 @@
 require('./waypointBox.less');
 
 var _ = require('lodash');
+var ClassNames = require('classnames');
 var L = require('leaflet');
 var React = require('react');
 
@@ -33,7 +34,7 @@ class WaypointBox extends React.Component {
   }
 
   render() {
-    var className = React.addons.classSet({
+    var className = ClassNames({
       'waypoint-box': true,
       'has-error': !this.state.valid,
     });

@@ -2,12 +2,13 @@
 
 require('./sidebarBox.less');
 
+var ClassNames = require('classnames');
 var React = require('react');
 
 
 class SidebarBox extends React.Component {
   render() {
-    var className = React.addons.classSet({
+    var className = ClassNames({
       'sidebar-box': true,
       'loading': this.props.loading,
     });

@@ -34,7 +34,6 @@ module.exports = {
       'bootstrap.js': 'bootstrap/dist/js/bootstrap\.js',
       'mq-map': 'common/mq-map',
       'mq-routing': 'common/mq-routing',
-      'react': 'react/addons',
     },
     modulesDirectories: ['node_modules', 'src'],
   },
