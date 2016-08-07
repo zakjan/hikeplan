@@ -7,3 +7,7 @@ npm-debug.log
 /client/dist
 
 /.env
+
+/.idea
+/*.iml
+.DS_STORE
