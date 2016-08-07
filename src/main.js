@@ -3,7 +3,6 @@
 var _ = require('lodash');
 var compression = require('compression');
 var express = require('express');
-var herokuSelfPing = require('heroku-self-ping');
 var morgan = require('morgan');
 var serveStatic = require('serve-static');
 
@@ -26,6 +25,3 @@ setupRoutes(app);
 app.listen(process.env.PORT || 3000, function() {
   console.info('Express server started');
 });
-
-
-herokuSelfPing(process.env.BASE_URL);
