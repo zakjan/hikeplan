@@ -65,10 +65,10 @@ class Map extends React.Component {
       attribution: 'tiles &copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>'
     });
 
-    var mapboxOutdoorsLayer = new L.TileLayer('https://{s}.tiles.mapbox.com/v4/zakjan.la543gn5/{z}/{x}/{y}.png?access_token=' + config.mapboxAccessToken, {
+    var mapboxOutdoorsLayer = new L.TileLayer('https://api.mapbox.com/styles/v1/zakjan/ck93ufkml37li1ip9tuea3jnk/tiles/256/{z}/{x}/{y}@2x?access_token=' + config.mapboxAccessToken, {
       attribution: 'tiles &copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>'
     });
-
+    
     var openCycleMapLayer = new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: 'tiles &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
