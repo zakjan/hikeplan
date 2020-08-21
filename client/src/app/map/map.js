@@ -61,10 +61,6 @@ class Map extends React.Component {
       attribution: 'tiles &copy; <a href="http://www.thunderforest.com" target="_blank">Thunderforest</a>'
     });
 
-    var mapboxRunBikeHikeLayer = new L.TileLayer('https://{s}.tiles.mapbox.com/v4/zakjan.la34ba7d/{z}/{x}/{y}.png?access_token=' + config.mapboxAccessToken, {
-      attribution: 'tiles &copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>'
-    });
-
     var mapboxOutdoorsLayer = new L.TileLayer('https://api.mapbox.com/styles/v1/zakjan/ck93ufkml37li1ip9tuea3jnk/tiles/256/{z}/{x}/{y}@2x?access_token=' + config.mapboxAccessToken, {
       attribution: 'tiles &copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>'
     });
@@ -88,7 +84,6 @@ class Map extends React.Component {
     var layersControl = new L.Control.Layers({
       'Thunderforest Landscape': thunderforestLandscapeLayer,
       'Thunderforest Outdoors': thunderforestOutdoorsLayer,
-      'Mapbox Run, Bike and Hike': mapboxRunBikeHikeLayer,
       'Mapbox Outdoors': mapboxOutdoorsLayer,
       'OpenCycleMap': openCycleMapLayer,
       'OpenStreetMap': openStreetMapLayer,
