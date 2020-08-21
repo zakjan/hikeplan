@@ -87,7 +87,7 @@ class Route {
         key: config.mapQuestAccessToken,
         sessionId: routeSessionId,
         useFilter: true, // smooth line, fixes missing data
-        outShapeFormat: 'none',
+        shapeFormat: 'raw',
       },
       json: true,
     };
