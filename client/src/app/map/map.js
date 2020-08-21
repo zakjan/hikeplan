@@ -100,7 +100,7 @@ class Map extends React.Component {
     this.map.addControl(scaleControl);
     this.map.addControl(attributionControl);
     this.map.addControl(layersControl);
-    this.map.addLayer(thunderforestLandscapeLayer);
+    this.map.addLayer(mapboxOutdoorsLayer);
     this.map.addLayer(waymarkedTrailsLayer);
   }
 
