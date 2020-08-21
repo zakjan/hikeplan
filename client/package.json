@@ -8,7 +8,7 @@
     "dist": "webpack"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "10.x"
   },
   "devDependencies": {
     "babel-core": "4.0.1",
