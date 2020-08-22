@@ -82,7 +82,7 @@ class Route {
 
   static getStats(routeSessionId) {
     var reqOptions = {
-      url: 'http://open.mapquestapi.com/elevation/v1/profile',
+      url: 'https://open.mapquestapi.com/elevation/v1/profile',
       qs: {
         key: config.mapQuestAccessToken,
         sessionId: routeSessionId,

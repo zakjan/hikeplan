@@ -51,23 +51,23 @@ class Map extends React.Component {
 
     attributionControl.addAttribution('data &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors');
 
-    var thunderforestLandscapeLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
+    var thunderforestLandscapeLayer = new L.TileLayer('https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      attribution: 'tiles &copy; <a href="http://www.thunderforest.com" target="_blank">Thunderforest</a>'
+      attribution: 'tiles &copy; <a href="https://www.thunderforest.com" target="_blank">Thunderforest</a>'
     });
 
-    var thunderforestOutdoorsLayer = new L.TileLayer('http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', {
+    var thunderforestOutdoorsLayer = new L.TileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      attribution: 'tiles &copy; <a href="http://www.thunderforest.com" target="_blank">Thunderforest</a>'
+      attribution: 'tiles &copy; <a href="https://www.thunderforest.com" target="_blank">Thunderforest</a>'
     });
 
     var mapboxOutdoorsLayer = new L.TileLayer('https://api.mapbox.com/styles/v1/zakjan/ck93ufkml37li1ip9tuea3jnk/tiles/256/{z}/{x}/{y}@2x?access_token=' + config.mapboxAccessToken, {
       attribution: 'tiles &copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>'
     });
     
-    var openCycleMapLayer = new L.TileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+    var openCycleMapLayer = new L.TileLayer('https://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      attribution: 'tiles &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+      attribution: 'tiles &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
     });
 
     var openStreetMapLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -75,10 +75,10 @@ class Map extends React.Component {
       attribution: 'tiles &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
     });
 
-    var waymarkedTrailsLayer = new L.TileLayer('http://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
+    var waymarkedTrailsLayer = new L.TileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
       maxZoom: 19,
       opacity: 0.5,
-      attribution: 'overlay &copy; <a href="http://hiking.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
+      attribution: 'overlay &copy; <a href="https://hiking.waymarkedtrails.org" target="_blank">Waymarked Trails</a>'
     });
 
     var layersControl = new L.Control.Layers({
