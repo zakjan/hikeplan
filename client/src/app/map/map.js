@@ -51,12 +51,12 @@ class Map extends React.Component {
 
     attributionControl.addAttribution('data &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors');
 
-    var thunderforestLandscapeLayer = new L.TileLayer('https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png', {
+    var thunderforestLandscapeLayer = new L.TileLayer('https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=' + config.thunderforestAccessToken, {
       maxZoom: 18,
       attribution: 'tiles &copy; <a href="https://www.thunderforest.com" target="_blank">Thunderforest</a>'
     });
 
-    var thunderforestOutdoorsLayer = new L.TileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png', {
+    var thunderforestOutdoorsLayer = new L.TileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=' + config.thunderforestAccessToken, {
       maxZoom: 18,
       attribution: 'tiles &copy; <a href="https://www.thunderforest.com" target="_blank">Thunderforest</a>'
     });
@@ -65,7 +65,7 @@ class Map extends React.Component {
       attribution: 'tiles &copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>'
     });
     
-    var openCycleMapLayer = new L.TileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png', {
+    var openCycleMapLayer = new L.TileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=' + config.thunderforestAccessToken, {
       maxZoom: 19,
       attribution: 'tiles &copy; <a href="https://www.thunderforest.com" target="_blank">Thunderforest</a>'
     });
@@ -95,7 +95,7 @@ class Map extends React.Component {
     this.map.addControl(scaleControl);
     this.map.addControl(attributionControl);
     this.map.addControl(layersControl);
-    this.map.addLayer(mapboxOutdoorsLayer);
+    this.map.addLayer(thunderforestLandscapeLayer);
     this.map.addLayer(waymarkedTrailsLayer);
   }
 

@@ -41,6 +41,7 @@ module.exports = {
     new Webpack.DefinePlugin({
       'MAP_QUEST_ACCESS_TOKEN': JSON.stringify(process.env.MAP_QUEST_ACCESS_TOKEN),
       'MAPBOX_ACCESS_TOKEN': JSON.stringify(process.env.MAPBOX_ACCESS_TOKEN),
+      'THUNDERFOREST_ACCESS_TOKEN': JSON.stringify(process.env.THUNDERFOREST_ACCESS_TOKEN),
     }),
     new Webpack.BannerPlugin(
       'HikePlan (build ' + new Date().toISOString() + ')\n\n' +
