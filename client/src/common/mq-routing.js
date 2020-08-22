@@ -13,7 +13,7 @@ MQSMSURL=MQPLATFORMSERVER;
 MQTOOLKIT_VERSION="v1.1".replace(/^v/, '');
 MQCDN=MQIMAGEPATH="http://api.mqcdn.com/"+"open-sdk/leaflet/v1.1/";
 MQCDNCOMMON="http://api.mqcdn.com/";
-MQICONSERVER=ICONSERVER=MQPROTOCOL+'icons.mqcdn.com';
+MQICONSERVER=ICONSERVER='http://icons.mqcdn.com';
 LOGSERVER=MQTILELOGGER="http://coverage.osm.mapquest.com";
 MQLOGURL="http://coverage.osm.mapquest.com/logger/v1";
 COVSERVER=MQCOPYRIGHT="http://coverage.osm.mapquest.com";
