@@ -65,9 +65,9 @@ class Map extends React.Component {
       attribution: 'tiles &copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>'
     });
     
-    var openCycleMapLayer = new L.TileLayer('https://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', {
+    var openCycleMapLayer = new L.TileLayer('https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      attribution: 'tiles &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+      attribution: 'tiles &copy; <a href="https://www.thunderforest.com" target="_blank">Thunderforest</a>'
     });
 
     var openStreetMapLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
