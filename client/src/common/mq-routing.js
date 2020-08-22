@@ -2,10 +2,10 @@
 MQCONFIGNUMBER=4;
 if(window.MQPROTOCOL===undefined){ MQPROTOCOL=window.location.protocol==='https:'?'https://':'http://'; }
 MQPLATFORMSERVER=MQPROTOCOL+"open.mapquestapi.com";
-MQSTATICSERVER="http://open.mapquestapi.com/staticmap/";
+MQSTATICSERVER=MQPROTOCOL+"open.mapquestapi.com/staticmap/";
 MQTRAFFSERVER=TRAFFSERVER="";
-MQROUTEURL="http://open.mapquestapi.com/directions/";
-MQGEOCODEURL="http://open.mapquestapi.com/geocoding/";
+MQROUTEURL=MQPROTOCOL+"open.mapquestapi.com/directions/";
+MQGEOCODEURL=MQPROTOCOL+"open.mapquestapi.com/geocoding/";
 MQNOMINATIMURL=MQPROTOCOL+"open.mapquestapi.com/";
 MQSEARCHURL="";
 MQLONGURL=MQPLATFORMSERVER;
